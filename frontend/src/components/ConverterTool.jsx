@@ -68,7 +68,7 @@ const ConverterTool = () => {
             const formData = new FormData();
             formData.append('file', uploadedFile);
             try {
-                const res = await axios.post('http://localhost:8000/extract-pages', formData);
+                const res = await axios.post(`${API_URL}/extract-pages`, formData);
                 const { pages: pageUrls } = res.data;
                 setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
 
@@ -117,7 +117,7 @@ const ConverterTool = () => {
         formData.append('pages', pages);
 
         try {
-            const response = await axios.post('http://localhost:8000/convert-to-word', formData, {
+            const response = await axios.post(`${API_URL}/convert-to-word`, formData, {
                 responseType: 'blob',
             });
 

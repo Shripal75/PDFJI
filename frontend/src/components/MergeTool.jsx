@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { ArrowDownTrayIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -27,7 +27,7 @@ const MergeTool = () => {
         });
 
         try {
-            const response = await axios.post('http://localhost:8000/merge', formData, {
+            const response = await axios.post(`${API_URL}/merge`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

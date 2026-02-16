@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { ScissorsIcon, ArrowDownTrayIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -40,7 +40,7 @@ const SplitTool = () => {
             formData.append('file', uploadedFile);
 
             try {
-                const response = await axios.post('http://localhost:8000/extract-pages', formData);
+                const response = await axios.post(`${API_URL}/extract-pages`, formData);
                 const imageUrls = response.data.pages.map(url => `http://localhost:8000${url}`);
                 setPreviews(imageUrls);
             } catch (error) {
@@ -69,7 +69,7 @@ const SplitTool = () => {
         formData.append('pages', range);
 
         try {
-            const response = await axios.post('http://localhost:8000/split-pdf', formData, {
+            const response = await axios.post(`${API_URL}/split-pdf`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

@@ -70,7 +70,7 @@ const PptToPdfTool = () => {
             formData.append('file', uploadedFile);
             try {
                 // Use the new endpoint for PPTX slides
-                const res = await axios.post('http://localhost:8000/extract-pptx-pages', formData);
+                const res = await axios.post(`${API_URL}/extract-pptx-pages`, formData);
                 const { pages: pageUrls } = res.data;
                 setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
 
@@ -114,7 +114,7 @@ const PptToPdfTool = () => {
         formData.append('pages', pages);
 
         try {
-            const response = await axios.post('http://localhost:8000/ppt-to-pdf', formData, {
+            const response = await axios.post(`${API_URL}/ppt-to-pdf`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

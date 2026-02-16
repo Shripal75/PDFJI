@@ -70,7 +70,7 @@ const PdfToWordTool = () => {
             const formData = new FormData();
             formData.append('file', uploadedFile);
             try {
-                const res = await axios.post('http://localhost:8000/extract-pages', formData);
+                const res = await axios.post(`${API_URL}/extract-pages`, formData);
                 const { pages: pageUrls } = res.data;
                 setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
 
@@ -112,7 +112,7 @@ const PdfToWordTool = () => {
         formData.append('pages', pages);
 
         try {
-            const response = await axios.post('http://localhost:8000/pdf-to-word', formData, {
+            const response = await axios.post(`${API_URL}/pdf-to-word`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

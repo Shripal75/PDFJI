@@ -74,7 +74,7 @@ const PdfToImageTool = () => {
             const formData = new FormData();
             formData.append('file', uploadedFile);
             try {
-                const res = await axios.post('http://localhost:8000/extract-pages', formData);
+                const res = await axios.post(`${API_URL}/extract-pages`, formData);
                 const { pages: pageUrls } = res.data;
                 setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
 
@@ -117,7 +117,7 @@ const PdfToImageTool = () => {
         formData.append('pages', pages); // This string is now driven by visual selection
 
         try {
-            const response = await axios.post('http://localhost:8000/pdf-to-images', formData, {
+            const response = await axios.post(`${API_URL}/pdf-to-images`, formData, {
                 responseType: 'blob',
             });
             const contentType = response.headers['content-type'] || '';
@@ -227,19 +227,19 @@ const PdfToImageTool = () => {
                                         <div className="flex bg-white rounded-xl p-1 shadow-sm border border-gray-200">
                                             <button
                                                 onClick={() => setFormat('png')}
-                                                className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${format === 'png'
-                                                    ? 'bg-brand-navy text-white shadow-md'
-                                                    : 'text-gray-500 hover:text-gray-700'
-                                                    }`}
+                                                className={`px - 6 py - 2 rounded - lg text - sm font - bold transition - all ${format === 'png'
+                                                        ? 'bg-brand-navy text-white shadow-md'
+                                                        : 'text-gray-500 hover:text-gray-700'
+                                                    } `}
                                             >
                                                 PNG
                                             </button>
                                             <button
                                                 onClick={() => setFormat('jpg')}
-                                                className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${format === 'jpg'
-                                                    ? 'bg-brand-navy text-white shadow-md'
-                                                    : 'text-gray-500 hover:text-gray-700'
-                                                    }`}
+                                                className={`px - 6 py - 2 rounded - lg text - sm font - bold transition - all ${format === 'jpg'
+                                                        ? 'bg-brand-navy text-white shadow-md'
+                                                        : 'text-gray-500 hover:text-gray-700'
+                                                    } `}
                                             >
                                                 JPG
                                             </button>

@@ -56,7 +56,7 @@ const ImageCompressTool = () => {
             }
 
             try {
-                const response = await axios.post('http://localhost:8000/estimate-image-size', formData, {
+                const response = await axios.post(`${API_URL}/estimate-image-size`, formData, {
                     signal: controller.signal,
                 });
                 setEstimate({
@@ -108,7 +108,7 @@ const ImageCompressTool = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/compress-image', formData, {
+            const response = await axios.post(`${API_URL}/compress-image`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -263,7 +263,7 @@ const ImageCompressTool = () => {
                                                     </div>
                                                 </div>
                                                 <div className="px-2 py-1 bg-green-50 text-green-700 font-bold text-xs rounded-md border border-green-100">
-                                                    {estimate.savedPercent > 0 ? `-${estimate.savedPercent}%` : '0%'}
+                                                    {estimate.savedPercent > 0 ? `- ${estimate.savedPercent} % ` : '0%'}
                                                 </div>
                                             </div>
                                         ) : (

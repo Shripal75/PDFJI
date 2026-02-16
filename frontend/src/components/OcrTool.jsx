@@ -66,7 +66,7 @@ const OcrTool = () => {
                 const formData = new FormData();
                 formData.append('file', uploadedFile);
                 try {
-                    const res = await axios.post('http://localhost:8000/extract-pages', formData);
+                    const res = await axios.post(`${API_URL}/extract-pages`, formData);
                     const { pages: pageUrls } = res.data;
                     setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
 
@@ -109,7 +109,7 @@ const OcrTool = () => {
         formData.append('pages', pages);
 
         try {
-            const response = await axios.post('http://localhost:8000/ocr-pdf', formData, {
+            const response = await axios.post(`${API_URL}/ocr-pdf`, formData, {
                 responseType: 'json',
             });
             setExtractedText(response.data.text || 'No text detected.');

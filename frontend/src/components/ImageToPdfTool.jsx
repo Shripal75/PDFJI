@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
@@ -70,7 +70,7 @@ const ImageToPdfTool = () => {
         });
 
         try {
-            const response = await axios.post('http://localhost:8000/img-to-pdf', formData, {
+            const response = await axios.post(`${API_URL}/img-to-pdf`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

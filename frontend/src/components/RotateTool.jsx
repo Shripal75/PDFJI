@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { ArrowPathIcon, ArrowDownTrayIcon, ArrowUturnLeftIcon, ArrowUturnRightIcon } from '@heroicons/react/24/outline';
@@ -24,7 +24,7 @@ const RotateTool = () => {
         const formData = new FormData();
         formData.append('file', uploadedFile);
         try {
-            const res = await axios.post('http://localhost:8000/extract-pages', formData);
+            const res = await axios.post(`${API_URL}/extract-pages`, formData);
             const { file_id, pages: pageUrls } = res.data;
             setSessionId(file_id);
             const pageList = pageUrls.map((url) => ({
@@ -67,7 +67,7 @@ const RotateTool = () => {
         formData.append('rotations', JSON.stringify(rotations));
 
         try {
-            const response = await axios.post('http://localhost:8000/rotate-pdf', formData, {
+            const response = await axios.post(`${API_URL}/rotate-pdf`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragOverlay } from '@dnd-kit/core';
@@ -87,7 +87,7 @@ const OrganizeTool = () => {
             formData.append('file', file);
 
             try {
-                const response = await axios.post('http://localhost:8000/extract-pages', formData);
+                const response = await axios.post(`${API_URL}/extract-pages`, formData);
                 const { file_id, pages: imageUrls } = response.data;
 
                 const newPages = imageUrls.map((url, i) => ({
@@ -146,7 +146,7 @@ const OrganizeTool = () => {
                 rotation: p.rotation
             }));
 
-            const response = await axios.post('http://localhost:8000/organize-pdf', {
+            const response = await axios.post(`${API_URL}/organize-pdf`, {
                 pages: payloadPages
             }, {
                 responseType: 'blob'
