@@ -72,7 +72,7 @@ const PdfToWordTool = () => {
             try {
                 const res = await axios.post(`${API_URL}/extract-pages`, formData);
                 const { pages: pageUrls } = res.data;
-                setPreviewPages(pageUrls.map(url => `http://localhost:8000${url}`));
+                setPreviewPages(pageUrls.map(url => `${API_URL}${url}`));
 
                 // Select all by default
                 const allIndices = new Set(pageUrls.map((_, i) => i));

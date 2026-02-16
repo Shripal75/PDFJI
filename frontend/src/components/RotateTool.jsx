@@ -29,7 +29,7 @@ const RotateTool = () => {
             const { file_id, pages: pageUrls } = res.data;
             setSessionId(file_id);
             const pageList = pageUrls.map((url) => ({
-                url: `http://localhost:8000${url}`,
+                url: `${API_URL}${url}`,
                 rotation: 0,
             }));
             setPages(pageList);

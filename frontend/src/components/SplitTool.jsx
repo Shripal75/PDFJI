@@ -42,7 +42,7 @@ const SplitTool = () => {
 
             try {
                 const response = await axios.post(`${API_URL}/extract-pages`, formData);
-                const imageUrls = response.data.pages.map(url => `http://localhost:8000${url}`);
+                const imageUrls = response.data.pages.map(url => `${API_URL}${url}`);
                 setPreviews(imageUrls);
             } catch (error) {
                 console.error('Error extracting previews:', error);

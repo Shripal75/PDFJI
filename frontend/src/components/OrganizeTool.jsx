@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
@@ -94,7 +95,7 @@ const OrganizeTool = () => {
                     id: uuidv4(), // Unique ID for frontend DnD
                     fileId: file_id,
                     pageIndex: i,
-                    url: `http://localhost:8000${url}`,
+                    url: `${API_URL}${url}`,
                     rotation: 0
                 }));
 
