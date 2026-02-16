@@ -21,7 +21,7 @@ const Footer = () => {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-                    <p>© {new Date().getFullYear()} PDFji. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} PDFJI. All rights reserved.</p>
                     <p className="flex items-center gap-1">
                         Making PDF management <span className="text-brand-red font-semibold">Fast</span> and <span className="text-brand-navy font-semibold">Easy</span>.
                     </p>

@@ -95,7 +95,7 @@ function App() {
       default: return (
         <div className="max-w-[1600px] mx-auto">
           <div className="py-12 mb-8 text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Welcome to PDFji</h2>
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Welcome to <span className="text-brand-navy">PDF</span><span className="text-brand-red">JI</span></h2>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto">
               All your PDF and document conversion needs in one place.
             </p>
@@ -158,7 +158,7 @@ function App() {
             <div className="bg-brand-orange text-white p-1.5 rounded-lg">
               <SwatchIcon className="h-6 w-6" />
             </div>
-            <span className="text-xl font-black text-brand-navy tracking-tight">pdf<span className="text-brand-red">ji</span></span>
+            <span className="text-xl font-black text-brand-navy tracking-tight">PDF<span className="text-brand-red">JI</span></span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
@@ -220,7 +220,7 @@ function App() {
 
         <div className="p-4 border-t border-gray-100">
           <div className="text-xs text-center text-gray-400">
-            &copy; 2026 PDFji. All rights reserved.
+            &copy; {new Date().getFullYear()} PDFJI. All rights reserved.
           </div>
         </div>
       </aside>
