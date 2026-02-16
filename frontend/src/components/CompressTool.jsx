@@ -109,7 +109,7 @@ const CompressTool = () => {
         }
 
         try {
-            const response = await axios.post(`${API_URL}/compress-pdf`, formData, {
+            const response = await axios.post(`${API_URL}/compress`, formData, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));
