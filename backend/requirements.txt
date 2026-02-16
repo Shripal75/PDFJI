@@ -4,6 +4,7 @@ torchvision
 fastapi
 uvicorn
 python-multipart
+opencv-python-headless
 pypdf
 pdf2docx
 pymupdf

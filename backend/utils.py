@@ -1,6 +1,6 @@
 import os
 from pypdf import PdfReader, PdfWriter
-from pdf2docx import Converter
+
 import fitz  # PyMuPDF
 from PIL import Image
 import io
@@ -155,7 +155,7 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
     return output_path
 
 def convert_pdf_to_word(input_path, output_path, pages=None):
-    cv = Converter(input_path)
+    from pdf2docx import Converter
     if pages:
         cv.convert(output_path, pages=pages)
     else:
