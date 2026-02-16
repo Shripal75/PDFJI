@@ -156,6 +156,7 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
 
 def convert_pdf_to_word(input_path, output_path, pages=None):
     from pdf2docx import Converter
+    cv = Converter(input_path)
     if pages:
         cv.convert(output_path, pages=pages)
     else:
@@ -622,7 +623,6 @@ def ppt_to_pdf(input_path, output_path, page_indices=None):
     """
     try:
         import comtypes.client
-    except ImportError:
     except ImportError:
         raise ImportError("comtypes is required for PPT to PDF (Windows only). pip install comtypes")
         
