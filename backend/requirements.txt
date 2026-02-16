@@ -9,4 +9,6 @@ pypdf
 pdf2docx
 pymupdf
 Pillow
+python-pptx
+easyocr
 
