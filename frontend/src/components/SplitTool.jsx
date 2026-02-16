@@ -92,13 +92,13 @@ const SplitTool = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-6 space-y-8">
+        <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Split PDF</h2>
-                <p className="text-gray-500">Extract specific pages visually or by range.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Split PDF</h2>
+                <p className="text-sm sm:text-base text-gray-500">Extract specific pages visually or by range.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white">
                 {!downloadUrl ? (
                     <div className="space-y-8">
                         {!file ? (

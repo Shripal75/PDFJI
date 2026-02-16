@@ -14,7 +14,7 @@ const Dropzone = ({ onDrop, accept = { 'application/pdf': ['.pdf'] }, multiple =
         <div
             {...getRootProps()}
             className={clsx(
-                'border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all duration-200 ease-in-out group',
+                'border-2 border-dashed rounded-2xl p-6 sm:p-10 text-center cursor-pointer transition-all duration-200 ease-in-out group',
                 isDragActive
                     ? 'border-brand-navy bg-brand-navy/5 scale-[1.02]'
                     : 'border-gray-200 hover:border-brand-red hover:bg-gray-50'

@@ -174,7 +174,7 @@ const OrganizeTool = () => {
                 <p className="text-gray-500">Merge, Split, Rotate, and Organize your PDF pages.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white min-h-[500px] flex flex-col">
+            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white min-h-[500px] flex flex-col">
                 {pages.length === 0 ? (
                     loading ? (
                         <div className="flex flex-col items-center justify-center flex-grow">
@@ -189,19 +189,19 @@ const OrganizeTool = () => {
                     )
                 ) : (
                     <>
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                             <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                                 <DocumentIcon className="h-5 w-5 text-brand-navy" />
                                 {pages.length} Pages
                             </h3>
-                            <div className="flex gap-3">
+                            <div className="grid grid-cols-2 w-full sm:flex sm:w-auto gap-3">
                                 <button
                                     onClick={reset}
-                                    className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium"
+                                    className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium order-3 sm:order-none col-span-2 sm:col-auto"
                                 >
                                     Clear All
                                 </button>
-                                <label className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors text-sm font-medium cursor-pointer flex items-center gap-2">
+                                <label className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors text-sm font-medium cursor-pointer flex items-center justify-center gap-2">
                                     <PlusIcon className="h-4 w-4" />
                                     Add PDF
                                     <input
@@ -214,7 +214,7 @@ const OrganizeTool = () => {
                                 </label>
                                 <button
                                     onClick={handleSave}
-                                    className="px-6 py-2 bg-brand-navy text-white rounded-lg hover:bg-brand-navy/90 transition-colors shadow-lg shadow-brand-navy/20 font-medium flex items-center gap-2"
+                                    className="px-6 py-2 bg-brand-navy text-white rounded-lg hover:bg-brand-navy/90 transition-colors shadow-lg shadow-brand-navy/20 font-medium flex items-center justify-center gap-2"
                                 >
                                     <ArrowDownTrayIcon className="h-4 w-4" />
                                     Save PDF
