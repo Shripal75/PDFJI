@@ -1,0 +1,93 @@
+2026-02-10 21:12:07,107 - INFO - Opening PDF: temp_test.pdf
+2026-02-10 21:12:07,108 - INFO - Page 0: Found 2 images
+2026-02-10 21:12:07,117 - INFO - Image 197: Original size 14343 bytes
+2026-02-10 21:12:07,139 - INFO - Image 197: Compressed size 1993 bytes (Quality 10)
+2026-02-10 21:12:07,141 - INFO - Image 197: Replaced
+2026-02-10 21:12:07,142 - INFO - Image 200: Original size 67048 bytes
+2026-02-10 21:12:07,146 - INFO - Image 200: Compressed size 8704 bytes (Quality 10)
+2026-02-10 21:12:07,146 - INFO - Image 200: Replaced
+2026-02-10 21:12:07,147 - INFO - Page 1: Found 0 images
+2026-02-10 21:12:07,147 - INFO - Page 2: Found 0 images
+2026-02-10 21:12:07,147 - INFO - Page 3: Found 0 images
+2026-02-10 21:12:07,149 - INFO - Page 4: Found 0 images
+2026-02-10 21:12:07,149 - INFO - Page 5: Found 1 images
+2026-02-10 21:12:07,149 - INFO - Image 242: Original size 94982 bytes
+2026-02-10 21:12:07,153 - INFO - Image 242: Compressed size 10141 bytes (Quality 10)
+2026-02-10 21:12:07,154 - INFO - Image 242: Replaced
+2026-02-10 21:12:07,155 - INFO - Page 6: Found 1 images
+2026-02-10 21:12:07,155 - INFO - Image 247: Original size 95512 bytes
+2026-02-10 21:12:07,158 - INFO - Image 247: Compressed size 9925 bytes (Quality 10)
+2026-02-10 21:12:07,159 - INFO - Image 247: Replaced
+2026-02-10 21:12:07,159 - INFO - Page 7: Found 0 images
+2026-02-10 21:12:07,160 - INFO - Page 8: Found 1 images
+2026-02-10 21:12:07,160 - INFO - Image 70: Original size 186020 bytes
+2026-02-10 21:12:07,172 - INFO - Image 70: Compressed size 20764 bytes (Quality 10)
+2026-02-10 21:12:07,174 - INFO - Image 70: Replaced
+2026-02-10 21:12:07,174 - INFO - Page 9: Found 1 images
+2026-02-10 21:12:07,174 - INFO - Image 78: Original size 46305 bytes
+2026-02-10 21:12:07,177 - INFO - Image 78: Compressed size 7411 bytes (Quality 10)
+2026-02-10 21:12:07,178 - INFO - Image 78: Replaced
+2026-02-10 21:12:07,178 - INFO - Page 10: Found 1 images
+2026-02-10 21:12:07,245 - INFO - Image 82: Original size 29442 bytes
+2026-02-10 21:12:07,264 - INFO - Image 82: Compressed size 29627 bytes (Quality 10)
+2026-02-10 21:12:07,264 - INFO - Image 82: Skipped (not smaller)
+2026-02-10 21:12:07,265 - INFO - Page 11: Found 1 images
+2026-02-10 21:12:07,265 - INFO - Image 86: Original size 96269 bytes
+2026-02-10 21:12:07,273 - INFO - Image 86: Compressed size 13856 bytes (Quality 10)
+2026-02-10 21:12:07,274 - INFO - Image 86: Replaced
+2026-02-10 21:12:07,274 - INFO - Page 12: Found 0 images
+2026-02-10 21:12:07,274 - INFO - Page 13: Found 0 images
+2026-02-10 21:12:07,274 - INFO - Page 14: Found 0 images
+2026-02-10 21:12:07,274 - INFO - Page 15: Found 1 images
+2026-02-10 21:12:07,275 - INFO - Image 292: Original size 67048 bytes
+2026-02-10 21:12:07,278 - INFO - Image 292: Compressed size 8704 bytes (Quality 10)
+2026-02-10 21:12:07,279 - INFO - Image 292: Replaced
+2026-02-10 21:12:07,279 - INFO - Processed 9 images total.
+2026-02-10 21:12:07,279 - ERROR - PyMuPDF compression failed: code=4: Linearisation is no longer supported
+2026-02-10 21:12:07,281 - INFO - Compression finished successfully.
+2026-02-10 21:13:45,529 - INFO - Opening PDF: temp_test.pdf
+2026-02-10 21:13:45,530 - INFO - Page 0: Found 2 images
+2026-02-10 21:13:45,538 - INFO - Image 197: Original size 14343 bytes
+2026-02-10 21:13:45,559 - INFO - Image 197: Compressed size 1993 bytes (Quality 10)
+2026-02-10 21:13:45,561 - INFO - Image 197: Replaced
+2026-02-10 21:13:45,561 - INFO - Image 200: Original size 67048 bytes
+2026-02-10 21:13:45,564 - INFO - Image 200: Compressed size 8704 bytes (Quality 10)
+2026-02-10 21:13:45,565 - INFO - Image 200: Replaced
+2026-02-10 21:13:45,566 - INFO - Page 1: Found 0 images
+2026-02-10 21:13:45,566 - INFO - Page 2: Found 0 images
+2026-02-10 21:13:45,566 - INFO - Page 3: Found 0 images
+2026-02-10 21:13:45,566 - INFO - Page 4: Found 0 images
+2026-02-10 21:13:45,566 - INFO - Page 5: Found 1 images
+2026-02-10 21:13:45,566 - INFO - Image 242: Original size 94982 bytes
+2026-02-10 21:13:45,570 - INFO - Image 242: Compressed size 10141 bytes (Quality 10)
+2026-02-10 21:13:45,571 - INFO - Image 242: Replaced
+2026-02-10 21:13:45,571 - INFO - Page 6: Found 1 images
+2026-02-10 21:13:45,571 - INFO - Image 247: Original size 95512 bytes
+2026-02-10 21:13:45,575 - INFO - Image 247: Compressed size 9925 bytes (Quality 10)
+2026-02-10 21:13:45,576 - INFO - Image 247: Replaced
+2026-02-10 21:13:45,576 - INFO - Page 7: Found 0 images
+2026-02-10 21:13:45,576 - INFO - Page 8: Found 1 images
+2026-02-10 21:13:45,577 - INFO - Image 70: Original size 186020 bytes
+2026-02-10 21:13:45,587 - INFO - Image 70: Compressed size 20764 bytes (Quality 10)
+2026-02-10 21:13:45,589 - INFO - Image 70: Replaced
+2026-02-10 21:13:45,589 - INFO - Page 9: Found 1 images
+2026-02-10 21:13:45,589 - INFO - Image 78: Original size 46305 bytes
+2026-02-10 21:13:45,592 - INFO - Image 78: Compressed size 7411 bytes (Quality 10)
+2026-02-10 21:13:45,593 - INFO - Image 78: Replaced
+2026-02-10 21:13:45,593 - INFO - Page 10: Found 1 images
+2026-02-10 21:13:45,649 - INFO - Image 82: Original size 29442 bytes
+2026-02-10 21:13:45,664 - INFO - Image 82: Compressed size 29627 bytes (Quality 10)
+2026-02-10 21:13:45,664 - INFO - Image 82: Skipped (not smaller)
+2026-02-10 21:13:45,664 - INFO - Page 11: Found 1 images
+2026-02-10 21:13:45,664 - INFO - Image 86: Original size 96269 bytes
+2026-02-10 21:13:45,672 - INFO - Image 86: Compressed size 13856 bytes (Quality 10)
+2026-02-10 21:13:45,673 - INFO - Image 86: Replaced
+2026-02-10 21:13:45,673 - INFO - Page 12: Found 0 images
+2026-02-10 21:13:45,673 - INFO - Page 13: Found 0 images
+2026-02-10 21:13:45,673 - INFO - Page 14: Found 0 images
+2026-02-10 21:13:45,673 - INFO - Page 15: Found 1 images
+2026-02-10 21:13:45,674 - INFO - Image 292: Original size 67048 bytes
+2026-02-10 21:13:45,677 - INFO - Image 292: Compressed size 8704 bytes (Quality 10)
+2026-02-10 21:13:45,678 - INFO - Image 292: Replaced
+2026-02-10 21:13:45,678 - INFO - Processed 9 images total.
+2026-02-10 21:13:45,721 - INFO - Compression finished successfully.

@@ -1,0 +1,61 @@
+Title: “ SkillBridge – A Smart Platform for Hiring Verified Skilled Professionals”
+Project Review I
+Presented by:
+ 
+ 
+Department of Information Technology
+ 
+Guided By: Mrs. Vaishali Anaspure 
+1) Shripal Rathod [C27]]
+ 
+2) Siddheshwar Vaidya [C30] 
+3) Vivek Devare [C57]
+--------------------------------------------------------------------------------------------------------------------------------------------------
+G H Raisoni College of Engineering & Management, Pune
+ 
+(An Empowered Autonomous Institute Affiliated to Savitribai Phule Pune University)
+
+
+Problem Statement
+Millions of skilled workers in India struggle to find consistent work due
+to lack of digital access, poor visibility, and dependence on middlemen.
+At the same time, people and businesses find it difficult to hire verified,
+nearby service providers. Most platforms today focus only on urban or
+white-collar jobs, leaving skilled trade workers behind. There’s a clear
+gap between skill availability and service demand. SkillBridge aims to
+bridge this gap with a smart, AI-powered platform that connects skilled
+individuals directly with real job opportunities.
+
+
+Conclusion                                                             
+Skillbridge demonstrates the effective use of artificial intelligence in a service- based
+marketplace by connecting skilled workers with customers efficiently. Through AI-
+powered recommendations, location-based matching, sentiment- based feedback
+analysis, dynamic pricing, and secure face-recognition authentication, the platform
+offers a reliable, transparent, and smarter alternative to traditional service-matching
+systems.
+
+
+References
+[1] Ministry of Labour and Employment, Government of India, 
+“Periodic Labour Force Survey (PLFS) 2022–23 Annual Report,”
+New Delhi, India, 2023.
+[2] R. Kaur and P. Singh, 
+“AI-driven job platforms in India,”
+Int. J. Comput. Appl. (IJCA), vol. XX, no. X, pp. XX–XX, 2021.
+[3] NITI Aayog, 
+“India’s gig economy outlook,”
+Government of India, New Delhi, India, 2023.
+
+
+[5] S. Verma and P. Kulkarni, 
+“Mobile-first solutions for rural employment access,”
+Int. J. ICT Develop., vol. XX, no. X, pp. XX–XX, 2021.
+4] A. Mahajan and R. Gupta, 
+“Digital platforms for informal labor in India: A case study,”
+J. Socio-Economic Development, vol. XX, no. X, pp. XX–XX, 2022.
+[6] T. Sharma and N. Bose, 
+“AI in blue-collar service platforms: Challenges and opportunities,”
+AI & Society, vol. XX, no. X, pp. XX–XX, 2020.
+
+

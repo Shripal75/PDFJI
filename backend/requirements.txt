@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pypdf
+pdf2docx
+pymupdf
+Pillow
+docx2pdf
+easyocr
+comtypes

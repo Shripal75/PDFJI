@@ -1,0 +1,222 @@
+Title: “ SkillBridge – A Smart Platform for Hiring Verified Skilled Professionals”
+Project Review I
+Presented by:
+ 
+ 
+Department of Information Technology
+ 
+Guided By: Mrs. Vaishali Anaspure 
+1) Shripal Rathod[BTechITC27]
+ 
+2) Siddheshwar Vaidya [BTechITC30]
+3) Vivek Devare [BTech ITC57]
+--------------------------------------------------------------------------------------------------------------------------------------------------
+G H Raisoni College of Engineering & Management, Pune
+ 
+(An Empowered Autonomous Institute Affiliated to Savitribai Phule Pune University)
+
+
+Contents
+Problem Statement
+Objectives
+Literature Review
+Proposed Methodology
+System Architecture
+Module-wise Breakdown
+Use Case / System Flow
+Tools & Technologies Used
+Conclusion & Future Work
+References
+
+
+Problem Statement
+Millions of skilled workers in India struggle to find consistent work due
+to lack of digital access, poor visibility, and dependence on middlemen.
+At the same time, people and businesses find it difficult to hire verified,
+nearby service providers. Most platforms today focus only on urban or
+white-collar jobs, leaving skilled trade workers behind. There’s a clear
+gap between skill availability and service demand. SkillBridge aims to
+bridge this gap with a smart, AI-powered platform that connects skilled
+individuals directly with real job opportunities.
+
+
+Objectives
+ 
+The primarygoal of the SkillBridge project is to create a functional and
+accessible digital ecosystem that empowers skilled manual workers and
+streamlines their connection with job providers. The project focuses not
+only on job discovery but also on promoting trust, transparency, and
+inclusivity in the informal labor sector
+To achieve this, the specific objectives of the project are outlined below:
+Objective 1 – Requirement Analysis & Platform Foundation To design and
+develop a digital platform that connects skilled manual workers with local job
+providers, reducing communication gaps and worker idle time.
+
+
+Objective 3 – Trust & Reliability Mechanisms 
+Toestablish credibility within thesystemthrough profile verification, rating mechanisms,
+and review systems, ensuring reliable and transparent worker–employer interactions.
+Objective 4 – Intelligent System Enhancement Using AI/ML 
+TointegrateAI andMachine Learning techniques for personalized job recommendations,
+feedback sentiment analysis, and dynamic trust scoring that improves over time.
+Objective 5 – Accessibility, Scalability & Inclusivity 
+Toensure the platformis accessible touserswith low digital literacy through multilingual
+support, icon-driven and voice-assisted interfaces, while maintaining scalability for future
+regional and sectoral expansion.
+Objective 2 – Core Functionality & User Experience 
+Toimplement essential system featuressuch asskill-based categorization, location- based
+search, job-type filtering, and real-time availability to enhance usability and efficiency.
+
+
+Literature Review
+
+
+
+
+Proposed Methodology 
+Methodology Overview The SkillBridge system is developed using a
+phased and agile-based approach to ensure scalability, usability, and
+continuous improvement. The platform follows iterative development
+with regular validation and feedback integration.
+Development Approach
+Requirement Analysis & Planning
+UI/UX Design (User-Centric & Accessible)
+Frontend Development
+
+
+Backend Development
+Database Integration
+AI/ML Integration
+Testing & Validation
+
+
+System Architecture : 
+
+
+Phase wise Implimentation Planning
+ Months Activities
+Problem Statement Identification
+Literature Review
+Requirement Analysis
+Designing
+Experimental Analysis
+Module Wise Implementation
+Testing And Debugging
+Project Report Preperation
+Jan 26
+Feb 26
+March 26
+April 26
+√
+√
+√
+√
+√
+√
+√
+√
+√
+√
+√
+√
+
+
+Use Case / System Flow
+
+
+Conclusion                                                             
+Skillbridge demonstrates the effective use of artificial intelligence in a service- based
+marketplace by connecting skilled workers with customers efficiently. Through AI-
+powered recommendations, location-based matching, sentiment- based feedback
+analysis, dynamic pricing, and secure face-recognition authentication, the platform
+offers a reliable, transparent, and smarter alternative to traditional service-matching
+systems.
+
+
+References
+[1] Ministry of Labour and Employment, Government of India, 
+“Periodic Labour Force Survey (PLFS) 2022–23 Annual Report,”
+New Delhi, India, 2023.
+[2] R. Kaur and P. Singh, 
+“AI-driven job platforms in India,”
+Int. J. Comput. Appl. (IJCA), vol. XX, no. X, pp. XX–XX, 2021.
+[3] NITI Aayog, 
+“India’s gig economy outlook,”
+Government of India, New Delhi, India, 2023.
+
+
+[5] S. Verma and P. Kulkarni, 
+“Mobile-first solutions for rural employment access,”
+Int. J. ICT Develop., vol. XX, no. X, pp. XX–XX, 2021.
+4] A. Mahajan and R. Gupta, 
+“Digital platforms for informal labor in India: A case study,”
+J. Socio-Economic Development, vol. XX, no. X, pp. XX–XX, 2022.
+[6] T. Sharma and N. Bose, 
+“AI in blue-collar service platforms: Challenges and opportunities,”
+AI & Society, vol. XX, no. X, pp. XX–XX, 2020.
+
+
+Thank You..
+
+
+e-Receipt For Online Driving License Application
+Government of
+Transport Department
+Maharashtra
+Office Name
+Applicant Name
+Date of Birth
+Application Date
+Application No
+DY.RTO, KARAD
+SHRIPAL DINESH RATHOD
+14-10-2003
+2652284925
+04-07-2025
+Receipt Date
+Receipt No
+Bank / Gateway
+Bank Reference No
+Transaction ID
+04-07-2025
+MH25Y/3235081
+c-SBIe
+555148601875
+MH2025Y0025473255
+Transaction
+Name
+Class of Vehicles
+Fee Amount
+Additional
+Fee / Fine
+Total
+NA
+NA
+ISSUE NEW LL
+Motor Cycle with Gear(Non Transport),LIGHT MOTOR
+VEHICLE
+289.26
+0.00
+289.26
+LLTEST
+50.00
+0.00
+50.00
+E-Sign charge
+0.00
+0.00
+0.00
+SERV.CHARGE-LL
+Motor Cycle with Gear(Non Transport),LIGHT MOTOR
+VEHICLE
+12.74
+0.00
+12.74
+Total Amount
+352.00
+Total Amount (In Words)
+Three Hundred Fifty Two Rupees only
+Note: Visit the Concerned Office with Required Forms and Documents along with this Receipt
+SOWRCP001
+
+

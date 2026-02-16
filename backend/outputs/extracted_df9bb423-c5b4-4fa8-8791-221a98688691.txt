@@ -1,0 +1,53 @@
+Disha Gore
+dishagore28@gmail.com |+918007988543 | LinkedIn
+SUMMARY:
+B.Tech student in Electronics and Telecommunication Engineering with a strong foundation
+in networking, Java development, and enterprise IT infrastructure. Certified in CCNA
+200-301 Network Fundamentals, with hands-on experience in routing, switching, subnetting,
+and network security. Skilled in Java, SDLC, and Agile methodologies. Recently designed
+and simulated a secure, scalable enterprise network for a payment processing environment,
+focusing on high availability and security compliance. Committed to delivering reliable and
+secure solutions aligned with fintech industry standards.
+EDUCATION:
+G.H. Raisoni College of Engineering And Management Pune, Maharashtra
+                      2022 - 26
+B. Tech in Electronic and Telecommunication | (CGPA: 8.31 / 10)
+Minor Degree in Data Preparation and Analytics
+Matoshri Sarubai Mane Mahavidyalaya Pandharpur, Maharashtra
+                     2020 - 21
+12th | MSBSHSE (Percentage: 91.20%)
+K.D High School, Pusad Yavatmal, Maharashtra
+                          2018 - 19
+10th | MSBSHSE (Percentage: 85.60%)
+TECHNICAL SKILLS:
+Programming: Java, Python, C++, PHP
+Web Technologies: HTML, CSS, JavaScript, React
+Databases: MySQL, PostgreSQL
+Tools: Cisco Packet Tracer, Git, VS Code
+Concepts: SDLC, Agile, DSA, Enterprise Architecture, Network Simulation
+Networking & Security: TCP/IP, Routing, Switching, VLAN, Subnetting, Firewalls,
+Redundancy
+PROJECTS:
+ Secure and Scalable Network Design for a Payment Processing Environment
+Successfully built a secure, scalable, and reliable network simulation, emphasizing high
+availability, network segmentation, and security compliance for the fintech domain.
+
+
+Designed and simulated a redundant enterprise network architecture tailored for a payment
+environment using Cisco Packet Tracer.
+Implemented firewalls, VLANs, and redundancy protocols to support continuous and secure
+payment processing operations.
+Project aligns with payment industry standards for security and reliability.
+CERTIFICATIONS:
+CCNA 200-301: Network Course
+Infosys Springboard ? DSA using Java, Software Engineering & Agile, Programming using
+Java
+Udemy ? Quantization for GenAI Model, Web Development, Python
+ACCA + CIMB Group ? Sustainability in Banking Job Simulation
+Goldman Sachs ? Operations Job Simulation
+COURSES:
+IEEE Workshop ? Artificial Intelligence at GH Raisoni College
+IBM ? Enterprise Data Science
+IBM ? Threat Intelligence and Hunting
+
+
