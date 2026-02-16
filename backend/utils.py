@@ -623,7 +623,8 @@ def ppt_to_pdf(input_path, output_path, page_indices=None):
     try:
         import comtypes.client
     except ImportError:
-        raise ImportError("comtypes is required for PPT to PDF. pip install comtypes")
+    except ImportError:
+        raise ImportError("comtypes is required for PPT to PDF (Windows only). pip install comtypes")
         
     powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
     # powerpoint.Visible = 1 # Keep it hidden if possible
