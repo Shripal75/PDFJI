@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { PresentationChartBarIcon, ArrowDownTrayIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -215,23 +216,25 @@ const PdfToPptTool = () => {
                                     </div>
                                 )}
 
-                                <button
-                                    onClick={handleConvert}
-                                    disabled={isProcessing || (previewPages.length > 0 && selectedPages.size === 0)}
-                                    className="w-full py-4 bg-brand-orange hover:bg-brand-orange/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-orange/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                                >
-                                    {isProcessing ? (
-                                        <>
-                                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                                            Converting...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <PresentationChartBarIcon className="h-6 w-6" />
-                                            Convert to PowerPoint
-                                        </>
-                                    )}
-                                </button>
+                                <div className="mt-8 pt-6 border-t border-gray-100">
+                                    <button
+                                        onClick={handleConvert}
+                                        disabled={isProcessing || (previewPages.length > 0 && selectedPages.size === 0)}
+                                        className="w-full py-4 bg-brand-orange hover:bg-brand-orange/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-orange/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                                    >
+                                        {isProcessing ? (
+                                            <>
+                                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                                Converting...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <PresentationChartBarIcon className="h-6 w-6" />
+                                                Convert to PowerPoint
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
                             </>
                         )}
                     </div>
@@ -244,10 +247,22 @@ const PdfToPptTool = () => {
                             <h3 className="2xl font-bold text-gray-900">Conversion Successful!</h3>
                             <p className="text-gray-500 mt-2">Your PowerPoint presentation is ready.</p>
                         </div>
+                        <div className="w-full max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <div className="flex items-center gap-1">
+                                <input
+                                    type="text"
+                                    value={outputFilename.replace(/\.pptx$/i, '')}
+                                    onChange={(e) => setOutputFilename(e.target.value)}
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                />
+                                <span className="text-gray-400 font-medium text-sm">.pptx</span>
+                            </div>
+                        </div>
                         <div className="flex gap-4 justify-center">
                             <a
                                 href={downloadUrl}
-                                download={outputFilename}
+                                download={`${outputFilename.replace(/\.pptx$/i, '') || 'converted'}.pptx`}
                                 className="px-8 py-3 bg-brand-orange text-white rounded-xl font-semibold shadow-lg shadow-brand-orange/20 hover:bg-brand-orange/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />

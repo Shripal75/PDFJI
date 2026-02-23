@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { ArrowDownTrayIcon, TrashIcon, PhotoIcon } from '@heroicons/react/24/outline';
@@ -309,6 +310,18 @@ const ImageCompressTool = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+                        <div className="w-full max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <div className="flex items-center gap-1">
+                                <input
+                                    type="text"
+                                    value={outputFilename.replace(/\.(png|jpg|jpeg|webp|gif)$/i, '')}
+                                    onChange={(e) => setOutputFilename(e.target.value + (outputFilename.match(/\.(png|jpg|jpeg|webp|gif)$/i)?.[0] || ''))}
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                />
+                                <span className="text-gray-400 font-medium text-sm">{outputFilename.match(/\.(png|jpg|jpeg|webp|gif)$/i)?.[0] || ''}</span>
+                            </div>
                         </div>
                         <div className="flex flex-col gap-4 max-w-sm mx-auto">
                             <a

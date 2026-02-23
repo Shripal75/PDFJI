@@ -1,7 +1,7 @@
 @echo off
 title PDFji Launcher
 echo Starting PDFji Backend...
-start "PDFji Backend" cmd /k "cd backend && python -m uvicorn main:app --reload --port 8000"
+start "PDFji Backend" cmd /k "cd backend && echo Installing dependencies... && pip install -r requirements.txt && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000"
 
 echo Starting PDFji Frontend...
 start "PDFji Frontend" cmd /k "cd frontend && npm run dev"

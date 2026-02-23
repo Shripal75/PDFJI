@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { PhotoIcon, ArrowDownTrayIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -227,19 +228,19 @@ const PdfToImageTool = () => {
                                         <div className="flex bg-white rounded-xl p-1 shadow-sm border border-gray-200">
                                             <button
                                                 onClick={() => setFormat('png')}
-                                                className={`px - 6 py - 2 rounded - lg text - sm font - bold transition - all ${format === 'png'
+                                                className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${format === 'png'
                                                     ? 'bg-brand-navy text-white shadow-md'
                                                     : 'text-gray-500 hover:text-gray-700'
-                                                    } `}
+                                                    }`}
                                             >
                                                 PNG
                                             </button>
                                             <button
                                                 onClick={() => setFormat('jpg')}
-                                                className={`px - 6 py - 2 rounded - lg text - sm font - bold transition - all ${format === 'jpg'
+                                                className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${format === 'jpg'
                                                     ? 'bg-brand-navy text-white shadow-md'
                                                     : 'text-gray-500 hover:text-gray-700'
-                                                    } `}
+                                                    }`}
                                             >
                                                 JPG
                                             </button>
@@ -301,6 +302,18 @@ const PdfToImageTool = () => {
                         <div>
                             <h3 className="text-3xl font-extrabold text-gray-900">Converted!</h3>
                             <p className="text-gray-500 mt-2 text-lg">Your pages have been converted to high-quality {format.toUpperCase()} images.</p>
+                        </div>
+                        <div className="w-full max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <div className="flex items-center gap-1">
+                                <input
+                                    type="text"
+                                    value={outputFilename.replace(/\.(zip|png|jpg|jpeg|webp)$/i, '')}
+                                    onChange={(e) => setOutputFilename(e.target.value + (outputFilename.match(/\.(zip|png|jpg|jpeg|webp)$/i)?.[0] || '.zip'))}
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                />
+                                <span className="text-gray-400 font-medium text-sm">{outputFilename.match(/\.(zip|png|jpg|jpeg|webp)$/i)?.[0] || '.zip'}</span>
+                            </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <a

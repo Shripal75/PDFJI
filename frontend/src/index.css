@@ -3,11 +3,13 @@
 :root {
   --brand-red: #E10600;
   --brand-navy: #0B3C6D;
+  --brand-orange: #ea580c;
 }
 
 @theme {
   --color-brand-red: #E10600;
   --color-brand-navy: #0B3C6D;
+  --color-brand-orange: #ea580c;
   --font-sans: "Montserrat", sans-serif;
 }
 

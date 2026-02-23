@@ -23,13 +23,13 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
     """
     Compress PDF by re-compressing all images at the given JPEG quality.
     quality: int (0-100), where lower = smaller file, higher = better image quality.
-    If target_size is provided (in bytes), it will try to hit it using iterative passes.
+    If target_size is provided (in bytes), it will try to hit that exact size.
     """
     
-    def run_compression(q, out_path):
+    def run_compression(q, out_path, scale=1.0):
+        """Compress PDF images. q = JPEG quality (1-95), scale = image dimension scale (0.1-1.0)."""
         try:
             doc = fitz.open(input_path)
-            # Remove metadata and unused data early
             doc.scrub(
                 clean_pages=True,
                 embedded_files=True,
@@ -50,14 +50,12 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
                         
                         img = Image.open(io.BytesIO(base_image["image"]))
                         
-                        # Extreme measures for extreme targets
                         if q < 15:
-                            img = img.convert("L")  # Convert to Grayscale
+                            img = img.convert("L")
                         elif img.mode in ("RGBA", "P", "LA"):
                             img = img.convert("RGB")
                         
-                        # Aggressive scaling based on quality
-                        scale = q / 100.0
+                        # Only resize if scale < 1.0 (second phase)
                         if scale < 1.0:
                             new_size = (max(1, int(img.width * scale)), max(1, int(img.height * scale)))
                             img = img.resize(new_size, Image.Resampling.LANCZOS)
@@ -71,7 +69,6 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
                             doc.xref_set_key(xref, "Filter", "/DCTDecode")
                     except: continue
             
-            # Subset fonts to reduce size
             try:
                 doc.subset_fonts()
             except:
@@ -84,27 +81,16 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
             print(f"Pass failed: {e}")
             return os.path.getsize(input_path)
 
-    def run_rasterization(q, out_path):
+    def run_rasterization(q, out_path, dpi=150):
         """Convert every page to an image and rebuild the PDF (Nuclear Option)."""
         try:
             doc = fitz.open(input_path)
             images = []
-            
-            # Use quality to determine DPI (standard is 72)
-            # Higher q -> better DPI, but capped to avoid extreme memory usage
-            dpi = max(72, int(72 * (q / 30))) if q > 30 else 72
             matrix = fitz.Matrix(dpi / 72, dpi / 72)
             
             for page in doc:
                 pix = page.get_pixmap(matrix=matrix, colorspace=fitz.csRGB if q >= 15 else fitz.csGRAY)
                 img = Image.open(io.BytesIO(pix.tobytes("jpeg")))
-                
-                # Further scale if q is very low
-                if q < 50:
-                    scale = q / 50.0
-                    if scale < 1.0:
-                        img = img.resize((max(1, int(img.width * scale)), max(1, int(img.height * scale))), Image.Resampling.LANCZOS)
-                
                 images.append(img)
             
             if images:
@@ -120,35 +106,66 @@ def compress_pdf(input_path, output_path, quality=50, target_size=None):
             return os.path.getsize(input_path)
 
     if target_size:
-        # Binary search for the best quality setting
-        low = 2
-        high = 92
-        best_q = low 
+        # Phase 1: Binary search on JPEG quality only (no resizing)
+        low = 1
+        high = 95
+        best_q = low
+        best_size = None
         
-        for _ in range(7):
+        for _ in range(10):
             mid = (low + high) // 2
             current_size = run_compression(mid, output_path)
             
             if current_size <= target_size:
                 best_q = mid
-                low = mid + 1
+                best_size = current_size
+                low = mid + 1  # Try higher quality (closer to target)
             else:
                 high = mid - 1
             
             if low > high: break
-            
+        
         current_size = run_compression(best_q, output_path)
         
-        # If still over target, use the Nuclear Option: Rasterization
+        # Phase 2: If quality-only compression still over target, add scaling
         if current_size > target_size:
-            # Try rasterization at a few quality levels if needed? 
-            # Let's try once at a balanced quality first, then drop if still over
-            r_q = 40
-            current_size = run_rasterization(r_q, output_path)
+            scale_low = 0.1
+            scale_high = 1.0
+            best_scale = scale_low
             
-            if current_size > target_size:
-                # Emergency low-quality rasterization
-                run_rasterization(15, output_path)
+            for _ in range(8):
+                scale_mid = (scale_low + scale_high) / 2
+                current_size = run_compression(1, output_path, scale=scale_mid)
+                
+                if current_size <= target_size:
+                    best_scale = scale_mid
+                    scale_low = scale_mid  # Try larger scale (closer to target)
+                else:
+                    scale_high = scale_mid
+                
+                if scale_high - scale_low < 0.02: break
+            
+            current_size = run_compression(1, output_path, scale=best_scale)
+        
+        # Phase 3: Nuclear — rasterize if still over target
+        if current_size > target_size:
+            dpi_low = 36
+            dpi_high = 150
+            best_dpi = dpi_low
+            
+            for _ in range(6):
+                dpi_mid = (dpi_low + dpi_high) // 2
+                current_size = run_rasterization(10, output_path, dpi=dpi_mid)
+                
+                if current_size <= target_size:
+                    best_dpi = dpi_mid
+                    dpi_low = dpi_mid + 1
+                else:
+                    dpi_high = dpi_mid - 1
+                
+                if dpi_low > dpi_high: break
+            
+            run_rasterization(10, output_path, dpi=best_dpi)
     else:
         run_compression(quality, output_path)
 
@@ -437,48 +454,35 @@ def word_to_pdf(input_path, output_path):
 def compress_image(input_path, output_path, quality=50, target_size=None):
     """
     Compress image files (JPG, PNG, WEBP).
-    If target_size is provided (in bytes), it attempts to find the best quality to stay under that size.
+    If target_size is provided (in bytes), it tries to hit that exact size.
     """
     img = Image.open(input_path)
     original_format = img.format
-    img_mode = img.mode
     
     # Handle transparency for formats that don't support it
-    if img_mode in ("RGBA", "P", "LA") and original_format == "JPEG":
+    if img.mode in ("RGBA", "P", "LA") and original_format == "JPEG":
         img = img.convert("RGB")
 
-    def run_compression(q, out_path):
-        """
-        Resize and compress image based on 'q' factor (1-100).
-        q affects both JPEG quality and Image Dimensions.
-        """
+    def run_compression(q, out_path, scale=1.0):
+        """Compress image. q = quality (1-95), scale = dimension scale (0.1-1.0)."""
         try:
-            # Reload per pass to avoid artifact accumulation
-            img = Image.open(input_path)
+            comp_img = Image.open(input_path)
             
-            # Handle formats
-            if img.mode in ("RGBA", "P", "LA") and (original_format == "JPEG" or q < 10):
-                img = img.convert("RGB")
+            if comp_img.mode in ("RGBA", "P", "LA") and (original_format == "JPEG" or q < 10):
+                comp_img = comp_img.convert("RGB")
             
-            # Grayscale for extreme compression
             if q < 10:
-                img = img.convert("L")
+                comp_img = comp_img.convert("L")
 
-            # Scale based on q
-            # q=100 -> scale=1.0, q=50 -> scale=0.75, q=10 -> scale=0.3
-            if q < 95:
-                scale = 0.2 + 0.8 * (q / 95.0) # Scale ranges from 0.2 to 1.0
-                new_size = (max(1, int(img.width * scale)), max(1, int(img.height * scale)))
-                img = img.resize(new_size, Image.Resampling.LANCZOS)
+            # Only resize if scale < 1.0
+            if scale < 1.0:
+                new_size = (max(1, int(comp_img.width * scale)), max(1, int(comp_img.height * scale)))
+                comp_img = comp_img.resize(new_size, Image.Resampling.LANCZOS)
 
-            # Determine save parameters
             save_args = {"optimize": True}
             
             if original_format == "PNG":
-                # PNG doesn't support 'quality', uses 'compress_level' (0-9)
-                # We rely mostly on resizing for PNG
                 save_args["format"] = "PNG"
-                pass 
             elif original_format == "WEBP":
                 save_args["format"] = "WEBP"
                 save_args["quality"] = max(1, q)
@@ -487,7 +491,7 @@ def compress_image(input_path, output_path, quality=50, target_size=None):
                 save_args["quality"] = max(1, q)
 
             buf = io.BytesIO()
-            img.save(buf, **save_args)
+            comp_img.save(buf, **save_args)
             compressed_bytes = buf.getvalue()
             
             with open(out_path, "wb") as f:
@@ -499,64 +503,44 @@ def compress_image(input_path, output_path, quality=50, target_size=None):
             return os.path.getsize(input_path)
 
     if target_size:
-        # Binary search for the best q factor
+        # Phase 1: Binary search on quality only (no resizing)
         low = 1
         high = 95
-        best_q = 1 # Default to lowest if target is impossible
+        best_q = low
         
-        for _ in range(7):
+        for _ in range(10):
             mid = (low + high) // 2
             current_size = run_compression(mid, output_path)
             
             if current_size <= target_size:
                 best_q = mid
-                low = mid + 1
+                low = mid + 1  # Try higher quality (closer to target)
             else:
                 high = mid - 1
             
             if low > high: break
-            
-        final_size = run_compression(best_q, output_path)
         
-        # Emergency Downscaling Loop
-        # If even the lowest quality/scale didn't work, forcefully scale down
-        if final_size > target_size:
-            img = Image.open(input_path)
-            if img.mode in ("RGBA", "P", "LA") and (original_format == "JPEG" or best_q < 10):
-                img = img.convert("RGB")
-            if best_q < 10:
-                img = img.convert("L")
-                
-            # Start from the scale we likely used at q=1 (approx 0.2)
-            current_scale = 0.2 + 0.8 * (best_q / 95.0)
+        current_size = run_compression(best_q, output_path)
+        
+        # Phase 2: If quality alone can't reach target, add scaling
+        if current_size > target_size:
+            scale_low = 0.1
+            scale_high = 1.0
+            best_scale = scale_low
             
-            while final_size > target_size and current_scale > 0.05:
-                # Reduce scale by 15%
-                current_scale *= 0.85
-                new_size = (max(1, int(img.width * current_scale)), max(1, int(img.height * current_scale)))
-                resized_img = img.resize(new_size, Image.Resampling.LANCZOS)
+            for _ in range(10):
+                scale_mid = (scale_low + scale_high) / 2
+                current_size = run_compression(1, output_path, scale=scale_mid)
                 
-                # Use minimal quality settings
-                save_args = {"optimize": True}
-                if original_format == "PNG":
-                    save_args["format"] = "PNG"
-                elif original_format == "WEBP":
-                    save_args["format"] = "WEBP"
-                    save_args["quality"] = max(1, best_q)
+                if current_size <= target_size:
+                    best_scale = scale_mid
+                    scale_low = scale_mid  # Try larger scale (closer to target)
                 else:
-                    save_args["format"] = "JPEG"
-                    save_args["quality"] = max(1, best_q)
+                    scale_high = scale_mid
                 
-                buf = io.BytesIO()
-                resized_img.save(buf, **save_args)
-                compressed_bytes = buf.getvalue()
-                
-                if len(compressed_bytes) <= target_size:
-                    with open(output_path, "wb") as f:
-                        f.write(compressed_bytes)
-                    break
-                
-                final_size = len(compressed_bytes)
+                if scale_high - scale_low < 0.01: break
+            
+            run_compression(1, output_path, scale=best_scale)
     else:
         # Simple quality-only compression if no target size
         img = Image.open(input_path)
@@ -731,4 +715,26 @@ def assemble_pdf(pages_spec, output_path):
             doc.close()
         out_doc.close()
     
+    return output_path
+
+
+def convert_image(input_path, output_path, target_format):
+    """
+    Convert an image to a different format using Pillow.
+    target_format: 'png', 'jpg', or 'webp'
+    """
+    img = Image.open(input_path)
+
+    # Convert RGBA to RGB for formats that don't support alpha
+    if target_format.lower() in ('jpg', 'jpeg') and img.mode in ('RGBA', 'P', 'LA'):
+        bg = Image.new('RGB', img.size, (255, 255, 255))
+        if img.mode == 'P':
+            img = img.convert('RGBA')
+        bg.paste(img, mask=img.split()[-1] if 'A' in img.mode else None)
+        img = bg
+
+    save_format = 'JPEG' if target_format.lower() in ('jpg', 'jpeg') else target_format.upper()
+    save_kwargs = {'quality': 95} if save_format == 'JPEG' else {}
+
+    img.save(output_path, format=save_format, **save_kwargs)
     return output_path

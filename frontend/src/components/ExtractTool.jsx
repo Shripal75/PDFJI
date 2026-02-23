@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { DocumentTextIcon, ArrowDownTrayIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -223,10 +224,22 @@ const ExtractTool = () => {
                             <h3 className="text-2xl font-bold text-gray-900">Text Extracted Successfully!</h3>
                             <p className="text-gray-500 mt-2">Your text file is ready for download.</p>
                         </div>
+                        <div className="w-full max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <div className="flex items-center gap-1">
+                                <input
+                                    type="text"
+                                    value={outputFilename.replace(/\.txt$/i, '')}
+                                    onChange={(e) => setOutputFilename(e.target.value)}
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                />
+                                <span className="text-gray-400 font-medium text-sm">.txt</span>
+                            </div>
+                        </div>
                         <div className="flex gap-4 justify-center">
                             <a
                                 href={downloadUrl}
-                                download={outputFilename}
+                                download={`${outputFilename.replace(/\.txt$/i, '') || 'extracted'}.txt`}
                                 className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { ArrowDownTrayIcon, TrashIcon, CheckCircleIcon } from '@heroicons/react/24/outline';

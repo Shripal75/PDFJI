@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { PencilSquareIcon, DocumentTextIcon, ClipboardDocumentIcon, CheckCircleIcon, ArrowDownTrayIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -141,7 +142,7 @@ const OcrTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Handwriting to Text <span className="text-brand-red italic text-lg font-normal">(BETA)</span></h2>
+                <h2 className="text-3xl font-bold text-gray-900">Handwriting to Text <sup className="text-red-500 italic text-base font-normal ml-1">(BETA)</sup></h2>
                 <p className="text-gray-500">Extract text from handwritten or scanned PDFs and images using OCR.</p>
             </div>
 

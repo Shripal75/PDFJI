@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Dropzone from './Dropzone';
 import axios from 'axios';
 import { PresentationChartBarIcon, ArrowDownTrayIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
@@ -247,10 +248,22 @@ const PptToPdfTool = () => {
                             <h3 className="text-2xl font-bold text-gray-900">Conversion Successful!</h3>
                             <p className="text-gray-500 mt-2">Your PDF is ready.</p>
                         </div>
+                        <div className="w-full max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <div className="flex items-center gap-1">
+                                <input
+                                    type="text"
+                                    value={outputFilename.replace(/\.pdf$/i, '')}
+                                    onChange={(e) => setOutputFilename(e.target.value)}
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                />
+                                <span className="text-gray-400 font-medium text-sm">.pdf</span>
+                            </div>
+                        </div>
                         <div className="flex gap-4 justify-center">
                             <a
                                 href={downloadUrl}
-                                download={outputFilename}
+                                download={`${outputFilename.replace(/\.pdf$/i, '') || 'converted'}.pdf`}
                                 className="px-8 py-3 bg-brand-orange text-white rounded-xl font-semibold shadow-lg shadow-brand-orange/20 hover:bg-brand-orange/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />

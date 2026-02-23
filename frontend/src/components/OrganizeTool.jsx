@@ -69,6 +69,7 @@ const OrganizeTool = () => {
     const [pages, setPages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [downloadUrl, setDownloadUrl] = useState(null);
+    const [outputFilename, setOutputFilename] = useState('edited_document');
     const [activeId, setActiveId] = useState(null);
 
     const sensors = useSensors(
@@ -213,13 +214,6 @@ const OrganizeTool = () => {
                                         onChange={(e) => handleDrop(Array.from(e.target.files))}
                                     />
                                 </label>
-                                <button
-                                    onClick={handleSave}
-                                    className="px-6 py-2 bg-brand-navy text-white rounded-lg hover:bg-brand-navy/90 transition-colors shadow-lg shadow-brand-navy/20 font-medium flex items-center justify-center gap-2"
-                                >
-                                    <ArrowDownTrayIcon className="h-4 w-4" />
-                                    Save PDF
-                                </button>
                             </div>
                         </div>
 
@@ -262,6 +256,23 @@ const OrganizeTool = () => {
                                 ) : null}
                             </DragOverlay>
                         </DndContext>
+
+                        <div className="mt-8 pt-6 border-t border-gray-100">
+                            <button
+                                onClick={handleSave}
+                                disabled={loading || pages.length === 0}
+                                className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                            >
+                                {loading ? (
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                ) : (
+                                    <>
+                                        <ArrowDownTrayIcon className="h-5 w-5" />
+                                        Save Organized PDF
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </>
                 )}
 
@@ -275,11 +286,23 @@ const OrganizeTool = () => {
                                 <h3 className="text-2xl font-bold text-gray-900">PDF Ready!</h3>
                                 <p className="text-gray-500 mt-2">Your edited PDF has been created successfully.</p>
                             </div>
+                            <div className="w-full">
+                                <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                                <div className="flex items-center gap-1">
+                                    <input
+                                        type="text"
+                                        value={outputFilename}
+                                        onChange={(e) => setOutputFilename(e.target.value)}
+                                        className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    />
+                                    <span className="text-gray-400 font-medium text-sm">.pdf</span>
+                                </div>
+                            </div>
                             <div className="grid gap-3">
                                 <a
                                     href={downloadUrl}
-                                    download="edited_document.pdf"
-                                    className="w-full py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-brand-navy/90 transition-colors shadow-lg shadow-brand-navy/20"
+                                    download={`${outputFilename || 'edited_document'}.pdf`}
+                                    className="w-full py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-brand-navy/90 transition-colors shadow-lg shadow-brand-navy/20 text-center"
                                 >
                                     Download PDF
                                 </a>

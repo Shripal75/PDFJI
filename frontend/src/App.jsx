@@ -15,6 +15,7 @@ import OcrTool from './components/OcrTool';
 import ImageCompressTool from './components/ImageCompressTool';
 import PdfToPptTool from './components/PdfToPptTool';
 import PptToPdfTool from './components/PptToPdfTool';
+import ImageConvertTool from './components/ImageConvertTool';
 import {
   WrenchScrewdriverIcon,
   DocumentTextIcon,
@@ -51,6 +52,7 @@ function App() {
     'img-to-pdf': { id: 'img-to-pdf', name: 'Image to PDF', icon: PhotoIcon, description: 'Convert images to a single PDF file.' },
     'word-to-pdf': { id: 'word-to-pdf', name: 'Word to PDF', icon: DocumentTextIcon, description: 'Convert DOCX to PDF.' },
     'ppt-to-pdf': { id: 'ppt-to-pdf', name: 'PowerPoint to PDF', icon: PresentationChartBarIcon, description: 'Convert PowerPoint presentations to PDF.' },
+    'convert-image': { id: 'convert-image', name: 'Convert Image', icon: ArrowPathIcon, description: 'Convert images between PNG, JPG, and WEBP.' },
   };
 
   const categories = [
@@ -68,7 +70,7 @@ function App() {
     },
     {
       title: 'Img Tool',
-      items: ['compress-image', 'pdf-to-img', 'img-to-pdf']
+      items: ['compress-image', 'pdf-to-img', 'img-to-pdf', 'convert-image']
     },
     {
       title: 'Other Converts',
@@ -79,6 +81,7 @@ function App() {
   const renderTool = () => {
     switch (activeTool) {
       case 'ocr': return <OcrTool />;
+      case 'convert-image': return <ImageConvertTool />;
       case 'extract': return <ExtractTool />;
       case 'pdf-to-ppt': return <PdfToPptTool />;
       case 'ppt-to-pdf': return <PptToPdfTool />;
@@ -116,16 +119,14 @@ function App() {
                 )}>
                   <tool.icon className="h-6 w-6" />
                 </div>
-                <h3 className={clsx(
-                  "text-lg font-bold mb-1 flex items-center gap-2 text-gray-900"
-                )}>
+                <h3 className="text-lg font-bold mb-1 text-gray-900 text-center">
                   {tool.name}
-                  {tool.beta && (
-                    <span className="bg-red-100 text-red-600 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">
-                      Beta
-                    </span>
-                  )}
                 </h3>
+                {tool.beta && (
+                  <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide mb-1">
+                    BETA
+                  </span>
+                )}
                 <p className="text-sm text-gray-500 text-center">{tool.description}</p>
               </button>
             ))}
@@ -204,10 +205,14 @@ function App() {
                         "h-5 w-5 transition-colors",
                         activeTool === toolId ? "text-brand-orange" : "text-gray-400 group-hover:text-gray-500"
                       )} />
-                      <span className="flex-1 text-left">{tool.name}</span>
+                      <span className="flex-1 text-left">
+                        {tool.name === 'Handwriting OCR' ? (
+                          <>Handwriting<br />OCR</>
+                        ) : tool.name}
+                      </span>
                       {tool.beta && (
-                        <span className="bg-red-100 text-red-600 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase leading-none">
-                          Beta
+                        <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                          BETA
                         </span>
                       )}
                     </button>

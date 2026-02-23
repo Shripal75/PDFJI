@@ -7,7 +7,7 @@ import os
 import uuid
 from typing import List, Optional
 from pydantic import BaseModel
-from utils import merge_pdfs, compress_pdf, convert_pdf_to_word, images_to_pdf, pdf_to_images, reorder_pdf, split_pdf, rotate_pdf, extract_text, word_to_pdf, pdf_to_high_res_images, compress_image, assemble_pdf
+from utils import merge_pdfs, compress_pdf, convert_pdf_to_word, images_to_pdf, pdf_to_images, reorder_pdf, split_pdf, rotate_pdf, extract_text, word_to_pdf, pdf_to_high_res_images, compress_image, assemble_pdf, convert_image
 
 app = FastAPI()
 
@@ -444,7 +444,6 @@ async def compress_image_endpoint(file: UploadFile = File(...), quality: int = F
 async def estimate_image_size(file: UploadFile = File(...), quality: int = Form(50), target_size: Optional[int] = Form(None)):
     try:
         # Save temp file
-        import fitz
         file_id = f"{uuid.uuid4()}_{file.filename}"
         file_path = os.path.join(UPLOAD_DIR, file_id)
         with open(file_path, "wb") as buffer:
@@ -461,6 +460,8 @@ async def estimate_image_size(file: UploadFile = File(...), quality: int = Form(
         
         # We run the actual compression logic to get the size
         # Ideally we'd optimize this to not do full I/O but for now it's accurate
+        original_file_size = os.path.getsize(file_path)
+        
         compress_image(file_path, output_path, quality, target_size)
         
         compressed_size = os.path.getsize(output_path)
@@ -473,9 +474,9 @@ async def estimate_image_size(file: UploadFile = File(...), quality: int = Form(
             pass
         
         return {
-            "original_size": os.path.getsize(file_path),
+            "original_size": original_file_size,
             "compressed_size": compressed_size,
-            "saved_percent": round((1 - compressed_size / original_size) * 100, 1) if original_size > 0 else 0
+            "saved_percent": round((1 - compressed_size / original_file_size) * 100, 1) if original_file_size > 0 else 0
         }
     except Exception as e:
         import traceback
@@ -634,6 +635,40 @@ async def word_to_pdf_endpoint(file: UploadFile = File(...)):
         
         original_name = file.filename.rsplit('.', 1)[0] if '.' in file.filename else file.filename
         return FileResponse(output_path, filename=f"{original_name}.pdf", media_type="application/pdf")
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/convert-image")
+async def convert_image_endpoint(
+    file: UploadFile = File(...),
+    target_format: str = Form("png")
+):
+    try:
+        file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        ext = target_format.lower()
+        if ext == 'jpeg':
+            ext = 'jpg'
+        output_filename = f"converted_{uuid.uuid4()}.{ext}"
+        output_path = os.path.join(OUTPUT_DIR, output_filename)
+
+        convert_image(file_path, output_path, target_format)
+
+        media_types = {
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'webp': 'image/webp',
+        }
+        media_type = media_types.get(ext, 'application/octet-stream')
+
+        original_name = file.filename.rsplit('.', 1)[0] if '.' in file.filename else file.filename
+        return FileResponse(output_path, filename=f"{original_name}.{ext}", media_type=media_type)
     except Exception as e:
         import traceback
         traceback.print_exc()
