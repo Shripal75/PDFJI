@@ -11,4 +11,6 @@ pymupdf
 Pillow
 python-pptx
 easyocr
+deep-translator
+fpdf2
 

@@ -87,7 +87,7 @@ const ImageConvertTool = () => {
                                             <img src={preview} alt="Preview" className="h-full w-full object-cover" />
                                         </div>
                                         <div>
-                                            <span className="font-medium text-gray-700 block truncate max-w-md">{file.name}</span>
+                                            <span className="font-medium text-gray-700 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
                                             <span className="text-xs text-gray-400">{(file.size / 1024).toFixed(1)} KB · {currentExt?.toUpperCase()}</span>
                                         </div>
                                     </div>

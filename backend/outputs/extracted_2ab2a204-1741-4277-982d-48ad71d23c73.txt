@@ -1,0 +1,122 @@
+--- Page 1 ---
+TCS NQT Preparation Plan
+Daily Study Plan
+•
+Numerical Ability – 2 Hours
+•
+Verbal Ability – 1 Hour
+•
+Advanced Coding – 1 Hour
+Numerical Ability - Foundation Topics
+•
+Statistics
+•
+Percentage (Most Important)
+•
+Time and Work
+•
+Area and Mensuration
+•
+Number System
+•
+Linear Equations
+•
+Data Interpretation
+•
+HCF and LCM
+•
+Simple Interest
+•
+Compound Interest
+•
+Profit and Loss
+•
+Speed, Distance and Time
+•
+Ratio and Proportion
+•
+Permutation and Combination
+•
+Probability
+•
+Partnership
+•
+Mixtures
+Advanced Quantitative Aptitude
+•
+Averages
+•
+Profit and Loss
+•
+HCF and LCM
+•
+Permutation and Combination
+•
+Probability
+•
+Geometry
+•
+Mensuration
+•
+Puzzles
+•
+Partnership
+•
+Number System
+•
+Time and Work
+•
+Time, Speed and Distance
+•
+Simple and Compound Interest
+•
+Progressions
+•
+Logarithms
+
+
+--- Page 2 ---
+Verbal Ability (Foundation)
+•
+Reading Comprehension
+•
+Sentence Correction
+•
+Sentence Completion
+•
+Error Identification
+•
+Synonyms and Antonyms
+•
+Sentence/Paragraph Rearrangement
+•
+Fill in the Blanks
+•
+Prepositions, Articles, Tenses, Conjunctions
+Advanced Coding
+•
+Object-Oriented Programming (OOPs)
+•
+Algorithms
+•
+Programs
+•
+Control Statements
+•
+Strings
+•
+Data Structures: Linked List, Stack, Queue, Tree, Graph
+•
+Scenario and Logical-Based Problems
+•
+String Operations
+•
+Number Series Patterns
+•
+Shortest Path Algorithms
+•
+Logical Calculation Problems
+•
+Time and Space Complexity (Hard Level)
+
+

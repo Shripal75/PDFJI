@@ -158,7 +158,7 @@ const ConverterTool = () => {
                                             DOC
                                         </div>
                                         <div>
-                                            <p className="font-medium text-gray-900">{file.name}</p>
+                                            <p className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-md">{file.name}</p>
                                             <p className="text-sm text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                         </div>
                                     </div>

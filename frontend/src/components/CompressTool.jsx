@@ -141,13 +141,13 @@ const CompressTool = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 space-y-8">
+        <div className="max-w-4xl mx-auto p-3 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
                 <h2 className="text-3xl font-bold text-gray-900">Compress PDF</h2>
                 <p className="text-gray-500">Reduce the file size of your PDF while maintaining quality.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white">
                 {!downloadUrl ? (
                     <div className="space-y-6">
                         {!file ? (
@@ -160,7 +160,7 @@ const CompressTool = () => {
                                             PDF
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium text-gray-900 truncate">{file.name}</p>
+                                            <p className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-md">{file.name}</p>
                                             <p className="text-sm text-gray-500">{formatSize(file.size)}</p>
                                         </div>
                                     </div>
@@ -194,8 +194,8 @@ const CompressTool = () => {
                                     {compressionMode === 'quality' ? (
                                         <div className="space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-lg font-bold text-gray-900">Image Quality</label>
-                                                <span className="px-3 py-1 bg-white text-brand-navy font-bold rounded-lg border border-brand-navy/10 shadow-sm">
+                                                <label className="text-base sm:text-lg font-bold text-gray-900">Image Quality</label>
+                                                <span className="px-3 py-1 bg-white text-brand-navy font-bold rounded-lg border border-brand-navy/10 shadow-sm text-sm sm:text-base">
                                                     {quality}%
                                                 </span>
                                             </div>
@@ -207,10 +207,10 @@ const CompressTool = () => {
                                                 onChange={(e) => setQuality(e.target.value)}
                                                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-navy"
                                             />
-                                            <div className="flex justify-between text-xs text-gray-500">
+                                            <div className="flex justify-between text-[10px] sm:text-xs text-gray-500 px-0.5">
                                                 <span>Smallest</span>
-                                                <span>Balanced</span>
-                                                <span>Best Quality</span>
+                                                <span className="text-center">Balanced</span>
+                                                <span className="text-right">Best Quality</span>
                                             </div>
                                         </div>
                                     ) : (
@@ -238,7 +238,7 @@ const CompressTool = () => {
                                     )}
 
                                     {/* Live Estimation Display */}
-                                    <div className="mt-4 p-4 bg-white rounded-xl border border-gray-200 shadow-sm min-h-[64px] flex items-center justify-center">
+                                    <div className="mt-4 p-3 sm:p-4 bg-white rounded-xl border border-gray-200 shadow-sm min-h-[64px] flex items-center justify-center">
                                         {estimating ? (
                                             <div className="flex items-center gap-3 text-gray-500">
                                                 <svg className="animate-spin h-5 w-5 text-brand-navy" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -248,20 +248,20 @@ const CompressTool = () => {
                                                 <span className="text-sm font-medium">Estimating...</span>
                                             </div>
                                         ) : estimate ? (
-                                            <div className="flex items-center justify-between w-full">
-                                                <div className="flex items-center gap-6">
+                                            <div className="flex flex-wrap items-center justify-between w-full gap-2">
+                                                <div className="flex items-center gap-3 sm:gap-6">
                                                     <div>
                                                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Original</p>
-                                                        <p className="text-sm font-semibold text-gray-900">{formatSize(estimate.originalSize)}</p>
+                                                        <p className="text-xs sm:text-sm font-semibold text-gray-900">{formatSize(estimate.originalSize)}</p>
                                                     </div>
                                                     <div className="text-gray-300">→</div>
                                                     <div>
                                                         <p className="text-[10px] text-brand-red uppercase font-bold tracking-wider">Estimated</p>
-                                                        <p className="text-sm font-bold text-brand-red">~{formatSize(estimate.compressedSize)}</p>
+                                                        <p className="text-xs sm:text-sm font-bold text-brand-red">~{formatSize(estimate.compressedSize)}</p>
                                                     </div>
                                                 </div>
-                                                <div className="px-2 py-1 bg-green-50 text-green-700 font-bold text-xs rounded-md border border-green-100">
-                                                    {estimate.savedPercent > 0 ? `- ${estimate.savedPercent} % ` : '0%'}
+                                                <div className="px-2 py-1 bg-green-50 text-green-700 font-bold text-xs rounded-md border border-green-100 shrink-0">
+                                                    {estimate.savedPercent > 0 ? `-${estimate.savedPercent}%` : '0%'}
                                                 </div>
                                             </div>
                                         ) : (
@@ -281,29 +281,29 @@ const CompressTool = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
-                            <ArrowDownTrayIcon className="h-10 w-10" />
+                    <div className="text-center space-y-5 sm:space-y-6 py-6 sm:py-10">
+                        <div className="h-16 w-16 sm:h-20 sm:w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                            <ArrowDownTrayIcon className="h-8 w-8 sm:h-10 sm:w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">Compression Complete!</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Compression Complete!</h3>
                             {stats && (
                                 <div className="mt-2 text-center">
-                                    <p className="text-gray-500">Your file is ready to download.</p>
-                                    <div className="mt-4 inline-flex items-center gap-4 bg-green-50 px-6 py-3 rounded-xl border border-green-100">
+                                    <p className="text-gray-500 text-sm sm:text-base">Your file is ready to download.</p>
+                                    <div className="mt-4 inline-flex items-center gap-2 sm:gap-4 bg-green-50 px-3 sm:px-6 py-2 sm:py-3 rounded-xl border border-green-100">
                                         <div className="text-center">
-                                            <p className="text-xs text-gray-500 uppercase font-bold">Original</p>
-                                            <p className="text-lg font-semibold text-gray-900">{formatSize(stats.originalSize)}</p>
+                                            <p className="text-[10px] sm:text-xs text-gray-500 uppercase font-bold">Original</p>
+                                            <p className="text-sm sm:text-lg font-semibold text-gray-900">{formatSize(stats.originalSize)}</p>
                                         </div>
                                         <div className="h-8 w-px bg-green-200"></div>
                                         <div className="text-center">
-                                            <p className="text-xs text-green-600 uppercase font-bold">Compressed</p>
-                                            <p className="text-lg font-bold text-green-700">{formatSize(stats.newSize)}</p>
+                                            <p className="text-[10px] sm:text-xs text-green-600 uppercase font-bold">Compressed</p>
+                                            <p className="text-sm sm:text-lg font-bold text-green-700">{formatSize(stats.newSize)}</p>
                                         </div>
                                         <div className="h-8 w-px bg-green-200"></div>
                                         <div className="text-center">
-                                            <p className="text-xs text-green-600 uppercase font-bold">Saved</p>
-                                            <p className="text-lg font-bold text-green-700">{stats.savedPercent}%</p>
+                                            <p className="text-[10px] sm:text-xs text-green-600 uppercase font-bold">Saved</p>
+                                            <p className="text-sm sm:text-lg font-bold text-green-700">{stats.savedPercent}%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -311,27 +311,27 @@ const CompressTool = () => {
                         </div>
                         <div className="w-full max-w-md mx-auto">
                             <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1 min-w-0">
                                 <input
                                     type="text"
                                     value={outputFilename}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 min-w-0 px-3 sm:px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
-                                <span className="text-gray-400 font-medium text-sm">.pdf</span>
+                                <span className="text-gray-400 font-medium text-sm shrink-0">.pdf</span>
                             </div>
                         </div>
-                        <div className="flex gap-4 justify-center">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename || 'compressed'}.pdf`}
-                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors"
+                                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors text-center"
                             >
                                 Download Compressed PDF
                             </a>
                             <button
                                 onClick={removeFile}
-                                className="px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
                             >
                                 Start Over
                             </button>

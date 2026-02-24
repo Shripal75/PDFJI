@@ -16,10 +16,13 @@ import ImageCompressTool from './components/ImageCompressTool';
 import PdfToPptTool from './components/PdfToPptTool';
 import PptToPdfTool from './components/PptToPdfTool';
 import ImageConvertTool from './components/ImageConvertTool';
+import TranslateTool from './components/TranslateTool';
+import ReadAloudTool from './components/ReadAloudTool';
 import {
   WrenchScrewdriverIcon,
   DocumentTextIcon,
   PhotoIcon,
+  PencilSquareIcon,
   ScissorsIcon,
   ArrowPathIcon,
   SparklesIcon,
@@ -28,7 +31,9 @@ import {
   Bars3Icon,
   XMarkIcon,
   HomeIcon,
-  SwatchIcon
+  SwatchIcon,
+  LanguageIcon,
+  SpeakerWaveIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Footer from './components/Footer';
@@ -38,10 +43,10 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const tools = {
+    'pdf-editor': { id: 'pdf-editor', name: 'PDF Editor', icon: PencilSquareIcon, description: 'Merge, split, reorder, rotate & delete pages.' },
     'merge': { id: 'merge', name: 'Merge PDF', icon: Squares2X2Icon, description: 'Combine multiple PDFs into one.' },
     'split': { id: 'split', name: 'Split PDF', icon: ScissorsIcon, description: 'Extract pages or split your document.' },
     'rotate': { id: 'rotate', name: 'Rotate', icon: ArrowPathIcon, description: 'Rotate PDF pages.' },
-    'organize': { id: 'organize', name: 'Organize', icon: Squares2X2Icon, description: 'Rearrange, delete, or rotate pages.' },
     'compress': { id: 'compress', name: 'Compress', icon: WrenchScrewdriverIcon, description: 'Reduce PDF file size.' },
     'pdf-to-img': { id: 'pdf-to-img', name: 'PDF to Image', icon: PhotoIcon, description: 'Convert PDF pages to images.' },
     'pdf-to-word': { id: 'pdf-to-word', name: 'PDF to Word', icon: DocumentTextIcon, description: 'Convert PDF to editable DOCX.' },
@@ -53,12 +58,14 @@ function App() {
     'word-to-pdf': { id: 'word-to-pdf', name: 'Word to PDF', icon: DocumentTextIcon, description: 'Convert DOCX to PDF.' },
     'ppt-to-pdf': { id: 'ppt-to-pdf', name: 'PowerPoint to PDF', icon: PresentationChartBarIcon, description: 'Convert PowerPoint presentations to PDF.' },
     'convert-image': { id: 'convert-image', name: 'Convert Image', icon: ArrowPathIcon, description: 'Convert images between PNG, JPG, and WEBP.' },
+    'translate': { id: 'translate', name: 'Translate PDF', icon: LanguageIcon, description: 'Translate PDF content between languages.' },
+    'read-aloud': { id: 'read-aloud', name: 'Read Aloud', icon: SpeakerWaveIcon, description: 'Listen to your PDF read out loud.' },
   };
 
   const categories = [
     {
       title: 'PDF Editor',
-      items: ['merge', 'split', 'rotate', 'organize', 'compress']
+      items: ['pdf-editor', 'merge', 'split', 'rotate', 'compress']
     },
     {
       title: 'PDF Convert',
@@ -75,6 +82,10 @@ function App() {
     {
       title: 'Other Converts',
       items: ['word-to-pdf', 'ppt-to-pdf']
+    },
+    {
+      title: 'PDF Utilities',
+      items: ['translate', 'read-aloud']
     }
   ];
 
@@ -86,15 +97,17 @@ function App() {
       case 'pdf-to-ppt': return <PdfToPptTool />;
       case 'ppt-to-pdf': return <PptToPdfTool />;
       case 'pdf-to-img': return <PdfToImageTool />;
-      case 'rotate': return <RotateTool />;
+      case 'pdf-editor': return <OrganizeTool />;
+      case 'merge': return <MergeTool />;
       case 'split': return <SplitTool />;
+      case 'rotate': return <RotateTool />;
       case 'compress': return <CompressTool />;
       case 'compress-image': return <ImageCompressTool />;
       case 'img-to-pdf': return <ImageToPdfTool />;
-      case 'organize': return <OrganizeTool />;
       case 'word-to-pdf': return <WordToPdfTool />;
       case 'pdf-to-word': return <PdfToWordTool />;
-      case 'merge': return <MergeTool />;
+      case 'translate': return <TranslateTool />;
+      case 'read-aloud': return <ReadAloudTool />;
       default: return (
         <div className="max-w-[1600px] mx-auto">
           <div className="py-12 mb-8 text-center">
@@ -156,9 +169,7 @@ function App() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setActiveTool(null)}
           >
-            <div className="bg-brand-orange text-white p-1.5 rounded-lg">
-              <SwatchIcon className="h-6 w-6" />
-            </div>
+            <img src="/logo.png" alt="PDFJI Logo" className="h-10 w-auto object-contain" />
             <span className="text-xl font-black text-brand-navy tracking-tight">PDF<span className="text-brand-red">JI</span></span>
           </div>
           <button
@@ -247,9 +258,14 @@ function App() {
         </header>
 
         {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto bg-gray-50/50 p-4 sm:p-6 lg:p-8">
-          <div className="max-w-[1600px] mx-auto h-full">
-            {renderTool()}
+        <main className="flex-1 overflow-y-auto bg-gray-50/50">
+          <div className="flex flex-col min-h-full">
+            <div className="flex-1 p-4 sm:p-6 lg:p-8">
+              <div className="max-w-[1600px] mx-auto h-full">
+                {renderTool()}
+              </div>
+            </div>
+            <Footer />
           </div>
         </main>
       </div>

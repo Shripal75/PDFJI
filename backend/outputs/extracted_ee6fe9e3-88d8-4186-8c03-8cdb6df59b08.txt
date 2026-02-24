@@ -1,0 +1,52 @@
+--- Page 1 ---
+Shripal Rathod
+IT student
+ shripalrathod01@gmail.com  +918767006256
+PROFILE SUMMARY :
+IT student who has experience with full-stack development, networking, and backend
+systems. Proficient in Java, Python, and C++, with excellent background in data structures,
+algorithms, and Linux. CCNA qualified and committed to creating scalable, secure software
+solutions. Active participant in tech projects and workshops; fast learner with excellent
+problem-solving skills. Enthusiastic to work on meaningful software projects and develop
+from practical experience.
+EDUCATION:
+Bachelor of Technology in Information Technology,
+G.H Raisoni College of Engineering and Management, Wagholi
+HSC (Science), Brilliant Academy Junior College of Science, Karad
+ Studied Physics, Mathematics and Chemistry  Percentage: 81.17%
+SSC, Shivanjali English Medium School, Patan
+ Percentage: 87.8%
+11/2022 ? 05/2026
+2021 ? 2022
+2019 ? 2020
+TECHNICAL SKILLS:
+Programming ? Java, Python, C++, PHP  Web Technologies ? HTML, CSS, JavaScript,
+React  Networking & Security ? CCNA, TCP/IP, LAN/WAN, Routing & Switching,Firewall
+Configurations  Databases ? MySQL, PostgreSQL  Tools ? Wireshark, Cisco Packet Tracer,
+Git, VS Code
+TECHNICAL PROJECTS:
+TENDER MANAGEMENT SYSTEM
+ Developed a full-stack Online Tender Management System using PHP, MySQL, HTML, and
+CSS.  Enabled secure digital bid submission and evaluation for procurement processes.
+  Implemented role-based access control and automated notifications.
+
+
+--- Page 2 ---
+ Included features for users to search, view, and book lodges based on preferences
+CERTIFICATIONS:
+ Infosys Springboard: DSA using Java, Software Engineering and Agile, Programming using
+Java  Udemy ? Quantization for GenAI Model, Web Development, Python
+ CCNA 200-301:Network Fundamentals Course
+ Bank of America & JPMorgan Chase - Investment Banking Job Simulation  Goldman Sachs
+-Operations Job Simulation
+WORKSHOPS & TRAINGING:
+IEEE Workshop -, Artificial Intelligence GH Raisoni College of Engineering and
+Management, Pune
+IBM -, Getting Started with Enterprise Data Science
+IBM -, Getting started with Threat Intelligence and Hunting
+IIT Bombay Training,
+Advanced C++, Python 3.4.3, RDBMS PostgreSQL, Java, JavaScript, Android App Using
+Kotlin
+Hackathon-, Code Vista 3.0 , Codechef
+
+

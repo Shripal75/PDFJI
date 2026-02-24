@@ -139,7 +139,7 @@ const ExtractTool = () => {
                         ) : (
                             <div className="space-y-4">
                                 <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
-                                    <span className="font-medium text-gray-700 truncate max-w-md">{file.name}</span>
+                                    <span className="font-medium text-gray-700 truncate max-w-[200px] sm:max-w-md">{file.name}</span>
                                     <button onClick={() => { setFile(null); setPreviewPages([]); }} className="text-sm text-red-500 hover:text-red-700 font-medium">
                                         Change File
                                     </button>

@@ -673,3 +673,153 @@ async def convert_image_endpoint(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/translate-pdf")
+async def translate_pdf_endpoint(file: UploadFile = File(...), source_lang: str = Form("en"), target_lang: str = Form("hi"), pages: str = Form("")):
+    """Extract text from PDF and translate it."""
+    try:
+        import fitz
+        from deep_translator import GoogleTranslator
+        from utils import parse_page_range
+
+        file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        doc = fitz.open(file_path)
+        total_pages = len(doc)
+
+        # Determine pages to process
+        if pages.strip():
+            page_indices = parse_page_range(pages, total_pages)
+        else:
+            page_indices = list(range(total_pages))
+
+        translator = GoogleTranslator(source=source_lang, target=target_lang)
+
+        results = []
+        for page_num in page_indices:
+            if 0 <= page_num < total_pages:
+                page = doc.load_page(page_num)
+                text = page.get_text("text").strip()
+                if text:
+                    # Google Translate has a 5000 char limit per request
+                    # Split into chunks if needed
+                    chunks = [text[i:i+4500] for i in range(0, len(text), 4500)]
+                    translated_chunks = []
+                    for chunk in chunks:
+                        try:
+                            translated = translator.translate(chunk)
+                            translated_chunks.append(translated)
+                        except Exception as te:
+                            translated_chunks.append(f"[Translation error: {str(te)}]")
+                    translated_text = " ".join(translated_chunks)
+                    results.append({
+                        "page": page_num + 1,
+                        "original": text,
+                        "translated": translated_text
+                    })
+                else:
+                    results.append({
+                        "page": page_num + 1,
+                        "original": "",
+                        "translated": "(No text found on this page)"
+                    })
+        doc.close()
+
+        return {"pages": results, "source_lang": source_lang, "target_lang": target_lang}
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+class TranslatedPage(BaseModel):
+    page: int
+    translated: str
+
+class GeneratePdfRequest(BaseModel):
+    pages: List[TranslatedPage]
+    filename: str = "translated"
+
+@app.post("/generate-translated-pdf")
+async def generate_translated_pdf(request: GeneratePdfRequest):
+    """Generate a PDF from translated text using fpdf2 for Unicode support."""
+    try:
+        from fpdf import FPDF
+        
+        pdf = FPDF()
+        pdf.set_auto_page_break(auto=True, margin=20)
+        pdf.set_left_margin(20)
+        pdf.set_right_margin(20)
+        
+        # Try to add a Unicode font that supports multiple scripts
+        font_added = False
+        font_candidates = [
+            (r"C:\Windows\Fonts\Nirmala.ttc", "Nirmala"),
+            (r"C:\Windows\Fonts\mangal.ttf", "Mangal"),
+            (r"C:\Windows\Fonts\arial.ttf", "Arial"),
+        ]
+        
+        for font_path, font_name in font_candidates:
+            if os.path.exists(font_path):
+                try:
+                    pdf.add_font(font_name, "", font_path, uni=True)
+                    pdf.set_font(font_name, size=9)
+                    font_added = True
+                    break
+                except Exception:
+                    continue
+        
+        if not font_added:
+            pdf.set_font("Helvetica", size=9)
+        
+        for page_data in request.pages:
+            text = page_data.translated
+            if not text.strip():
+                text = "(No text on this page)"
+            
+            pdf.add_page()
+            
+            # Page header
+            pdf.set_font_size(8)
+            pdf.set_text_color(150, 150, 150)
+            try:
+                pdf.cell(0, 6, f"Page {page_data.page}", new_x="LMARGIN", new_y="NEXT")
+            except Exception:
+                pass
+            pdf.ln(3)
+            
+            # Render translated text using write() for better character-level wrapping
+            pdf.set_font_size(9)
+            pdf.set_text_color(30, 30, 30)
+            
+            try:
+                # write() handles wrapping at character level, avoiding "not enough horizontal space"
+                pdf.write(5, text)
+                pdf.ln(5)
+            except Exception:
+                # Ultimate fallback: render character by character
+                try:
+                    for char in text:
+                        try:
+                            pdf.write(5, char)
+                        except Exception:
+                            pdf.write(5, "?")
+                    pdf.ln(5)
+                except Exception:
+                    pdf.multi_cell(0, 5, "(Text could not be rendered)")
+        
+        output_filename = f"translated_{uuid.uuid4()}.pdf"
+        output_path = os.path.join(OUTPUT_DIR, output_filename)
+        pdf.output(output_path)
+        
+        return FileResponse(
+            output_path, 
+            filename=f"{request.filename}.pdf", 
+            media_type="application/pdf"
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
