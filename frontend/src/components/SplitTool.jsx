@@ -94,23 +94,23 @@ const SplitTool = () => {
     return (
         <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Split PDF</h2>
-                <p className="text-sm sm:text-base text-gray-500">Extract specific pages visually or by range.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Split PDF</h2>
+                <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Extract specific pages visually or by range.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-4 sm:p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-8">
                         {!file ? (
                             <Dropzone onDrop={handleDrop} multiple={false} accept={{ 'application/pdf': ['.pdf'] }} />
                         ) : (
                             <div className="space-y-6">
-                                <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
+                                <div className="p-4 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 flex items-center justify-between">
                                     <div className="flex flex-col">
-                                        <span className="font-bold text-gray-900 truncate max-w-xs sm:max-w-md">{file.name}</span>
-                                        <span className="text-xs text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                                        <span className="font-bold text-gray-900 dark:text-white truncate max-w-xs sm:max-w-md">{file.name}</span>
+                                        <span className="text-xs text-gray-400 dark:text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
                                     </div>
-                                    <button onClick={() => setFile(null)} className="px-4 py-2 bg-white border border-gray-200 text-sm font-semibold text-gray-600 rounded-xl hover:bg-gray-50 transition-colors">
+                                    <button onClick={() => setFile(null)} className="px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-sm font-semibold text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                                         Change File
                                     </button>
                                 </div>
@@ -118,15 +118,15 @@ const SplitTool = () => {
                                 {loadingPreviews ? (
                                     <div className="py-20 flex flex-col items-center justify-center space-y-4">
                                         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-navy"></div>
-                                        <p className="text-gray-500 font-medium">Loading page previews...</p>
+                                        <p className="text-gray-500 dark:text-gray-400 font-medium">Loading page previews...</p>
                                     </div>
                                 ) : previews.length > 0 && (
                                     <div className="space-y-6 animate-in fade-in duration-500">
                                         <div className="flex justify-between items-center">
-                                            <h3 className="text-lg font-bold text-gray-900">Click to Select Pages</h3>
+                                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Click to Select Pages</h3>
                                             <div className="flex gap-4">
                                                 <button onClick={selectAll} className="text-sm font-bold text-brand-navy hover:underline">Select All</button>
-                                                <button onClick={clearSelection} className="text-sm font-bold text-gray-400 hover:text-gray-600 hover:underline">Clear</button>
+                                                <button onClick={clearSelection} className="text-sm font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:underline">Clear</button>
                                             </div>
                                         </div>
 
@@ -136,10 +136,10 @@ const SplitTool = () => {
                                                     key={index}
                                                     onClick={() => togglePage(index)}
                                                     className={clsx(
-                                                        "relative cursor-pointer aspect-[3/4] rounded-xl border-2 transition-all p-1 bg-gray-50 group",
+                                                        "relative cursor-pointer aspect-[3/4] rounded-xl border-2 transition-all p-1 bg-gray-50 dark:bg-slate-900 group",
                                                         selectedPages.has(index)
                                                             ? "border-brand-red ring-4 ring-brand-red/10 scale-95"
-                                                            : "border-transparent hover:border-gray-200"
+                                                            : "border-transparent hover:border-gray-200 dark:hover:border-slate-600"
                                                     )}
                                                 >
                                                     <img src={url} alt={`Page ${index + 1}`} className="w-full h-full object-contain rounded-lg" />
@@ -156,9 +156,9 @@ const SplitTool = () => {
                                             ))}
                                         </div>
 
-                                        <div className="p-6 bg-brand-navy/5 rounded-2xl border border-brand-navy/10 space-y-4">
+                                        <div className="p-6 bg-brand-navy/5 dark:bg-brand-navy/10 rounded-2xl border border-brand-navy/10 dark:border-brand-navy/20 space-y-4">
                                             <div>
-                                                <label className="block text-sm font-bold text-brand-navy mb-2">
+                                                <label className="block text-sm font-bold text-brand-navy dark:text-blue-400 mb-2">
                                                     Selected Page Range
                                                 </label>
                                                 <input
@@ -166,9 +166,9 @@ const SplitTool = () => {
                                                     value={range}
                                                     onChange={(e) => setRange(e.target.value)}
                                                     placeholder="e.g. 1-5, 8, 11-13"
-                                                    className="w-full px-4 py-3 rounded-xl border border-brand-navy/20 focus:ring-4 focus:ring-brand-navy/10 focus:border-brand-navy transition-all outline-none font-bold text-brand-navy"
+                                                    className="w-full px-4 py-3 bg-white dark:bg-slate-800 rounded-xl border border-brand-navy/20 dark:border-slate-600 focus:ring-4 focus:ring-brand-navy/10 focus:border-brand-navy transition-all outline-none font-bold text-brand-navy dark:text-white"
                                                 />
-                                                <p className="text-xs text-gray-500 mt-2">
+                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                                                     You can also manually edit the range above.
                                                 </p>
                                             </div>
@@ -176,7 +176,7 @@ const SplitTool = () => {
                                             <button
                                                 onClick={handleSplit}
                                                 disabled={!range || isProcessing}
-                                                className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                                className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:text-gray-500 disabled:opacity-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                             >
                                                 {isProcessing ? (
                                                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
@@ -195,21 +195,21 @@ const SplitTool = () => {
                     </div>
                 ) : (
                     <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                        <div className="h-20 w-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                             <ScissorsIcon className="h-10 w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">PDF Split Successfully!</h3>
-                            <p className="text-gray-500 mt-2">Your selected pages have been extracted.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">PDF Split Successfully!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Your selected pages have been extracted.</p>
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
                                     value={outputFilename.replace(/\.pdf$/i, '')}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white bg-white dark:bg-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
                                 <span className="text-gray-400 font-medium text-sm">.pdf</span>
                             </div>
@@ -218,14 +218,14 @@ const SplitTool = () => {
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename.replace(/\.pdf$/i, '') || 'split'}.pdf`}
-                                className="flex-1 px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors flex items-center justify-center gap-2"
+                                className="flex-1 px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none hover:bg-brand-navy/90 transition-colors flex items-center justify-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                                 Download PDF
                             </a>
                             <button
                                 onClick={() => { setFile(null); setDownloadUrl(null); setRange(''); setSelectedPages(new Set()); setPreviews([]); }}
-                                className="flex-1 px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="flex-1 px-8 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                             >
                                 Split Another
                             </button>

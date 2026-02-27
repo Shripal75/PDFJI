@@ -127,19 +127,19 @@ const ExtractTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Extract Text</h2>
-                <p className="text-gray-500">Extract text content from your PDF into a .txt file.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Extract Text</h2>
+                <p className="text-gray-500 dark:text-gray-400">Extract text content from your PDF into a .txt file.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-6">
                         {!file ? (
                             <Dropzone onDrop={handleDrop} multiple={false} accept={{ 'application/pdf': ['.pdf'] }} />
                         ) : (
                             <div className="space-y-4">
-                                <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
-                                    <span className="font-medium text-gray-700 truncate max-w-[200px] sm:max-w-md">{file.name}</span>
+                                <div className="p-6 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                                    <span className="font-medium text-gray-700 dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{file.name}</span>
                                     <button onClick={() => { setFile(null); setPreviewPages([]); }} className="text-sm text-red-500 hover:text-red-700 font-medium">
                                         Change File
                                     </button>
@@ -148,30 +148,30 @@ const ExtractTool = () => {
                                 {isLoadingPreviews ? (
                                     <div className="py-8 flex flex-col items-center gap-4">
                                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-navy"></div>
-                                        <p className="text-sm text-gray-500">Loading pages...</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Loading pages...</p>
                                     </div>
                                 ) : previewPages.length > 0 && (
                                     <div className="space-y-3 animate-in fade-in duration-500">
                                         <div className="flex justify-between items-center px-1">
-                                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Select Pages to Extract</h3>
+                                            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Select Pages to Extract</h3>
                                             <div className="flex gap-3">
-                                                <button onClick={selectAll} className="text-xs font-bold text-brand-navy hover:underline">All</button>
-                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 hover:text-gray-600 hover:underline">Clear</button>
+                                                <button onClick={selectAll} className="text-xs font-bold text-brand-navy dark:text-blue-400 hover:underline">All</button>
+                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:underline">Clear</button>
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 rounded-xl bg-gray-50/50">
+                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 dark:border-slate-700 rounded-xl bg-gray-50/50 dark:bg-slate-900/50">
                                             {previewPages.map((url, i) => (
                                                 <div
                                                     key={i}
                                                     onClick={() => togglePage(i)}
                                                     className={clsx(
-                                                        "relative cursor-pointer group aspect-[2/3] bg-white rounded-lg shadow-sm border-2 overflow-hidden transition-all",
+                                                        "relative cursor-pointer group aspect-[2/3] bg-white dark:bg-slate-800 rounded-lg shadow-sm border-2 overflow-hidden transition-all",
                                                         selectedPages.has(i)
                                                             ? "border-brand-navy ring-2 ring-brand-navy/10 scale-95"
-                                                            : "border-gray-200 hover:border-gray-300"
+                                                            : "border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500"
                                                     )}
                                                 >
-                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50" />
+                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50 dark:bg-slate-900" />
 
                                                     <div className={clsx(
                                                         "absolute inset-0 bg-brand-navy/10 transition-opacity flex items-center justify-center",
@@ -182,7 +182,7 @@ const ExtractTool = () => {
                                                         )}
                                                     </div>
 
-                                                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/60 backdrop-blur-sm py-0.5 text-center">
+                                                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/60 dark:bg-gray-900/80 backdrop-blur-sm py-0.5 text-center">
                                                         <span className="text-[9px] font-bold text-white">Page {i + 1}</span>
                                                     </div>
                                                 </div>
@@ -198,7 +198,7 @@ const ExtractTool = () => {
                                 <button
                                     onClick={handleExtract}
                                     disabled={isProcessing || (previewPages.length > 0 && selectedPages.size === 0)}
-                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {isProcessing ? (
                                         <>
@@ -217,37 +217,37 @@ const ExtractTool = () => {
                     </div>
                 ) : (
                     <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                        <div className="h-20 w-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                             <DocumentTextIcon className="h-10 w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">Text Extracted Successfully!</h3>
-                            <p className="text-gray-500 mt-2">Your text file is ready for download.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Text Extracted Successfully!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Your text file is ready for download.</p>
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
                                     value={outputFilename.replace(/\.txt$/i, '')}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
-                                <span className="text-gray-400 font-medium text-sm">.txt</span>
+                                <span className="text-gray-400 dark:text-gray-500 font-medium text-sm">.txt</span>
                             </div>
                         </div>
                         <div className="flex gap-4 justify-center">
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename.replace(/\.txt$/i, '') || 'extracted'}.txt`}
-                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
+                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                                 Download .txt
                             </a>
                             <button
                                 onClick={() => { setFile(null); setDownloadUrl(null); }}
-                                className="px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="px-8 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                             >
                                 Extract Another
                             </button>

@@ -146,26 +146,26 @@ const ReadAloudTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-3 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Read Aloud</h2>
-                <p className="text-gray-500 text-sm sm:text-base">Listen to your PDF content read out loud.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Read Aloud</h2>
+                <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">Listen to your PDF content read out loud.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-4 sm:p-8 border border-white dark:border-slate-700">
                 {!file ? (
                     <Dropzone onDrop={handleDrop} accept={{ 'application/pdf': ['.pdf'] }} />
                 ) : loading ? (
                     <div className="flex flex-col items-center justify-center py-16">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-navy mb-4"></div>
-                        <p className="text-gray-500">Extracting text from PDF...</p>
+                        <p className="text-gray-500 dark:text-gray-400">Extracting text from PDF...</p>
                     </div>
                 ) : (
                     <div className="space-y-5">
                         {/* File info */}
-                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                            <div className="h-10 w-10 bg-brand-navy/10 rounded-lg flex items-center justify-center text-brand-navy font-bold text-xs">PDF</div>
+                        <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-700">
+                            <div className="h-10 w-10 bg-brand-navy/10 dark:bg-brand-navy/30 rounded-lg flex items-center justify-center text-brand-navy dark:text-blue-400 font-bold text-xs">PDF</div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-medium text-gray-900 truncate text-sm max-w-[200px] sm:max-w-md">{file.name}</p>
-                                <p className="text-xs text-gray-500">{pages.length} page{pages.length !== 1 ? 's' : ''}</p>
+                                <p className="font-medium text-gray-900 dark:text-white truncate text-sm max-w-[200px] sm:max-w-md">{file.name}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{pages.length} page{pages.length !== 1 ? 's' : ''}</p>
                             </div>
                             <button onClick={removeFile} className="text-red-500 hover:text-red-700 text-xs font-medium">Remove</button>
                         </div>
@@ -222,7 +222,7 @@ const ReadAloudTool = () => {
                                         className="text-xs bg-white/10 text-white border border-white/20 rounded-lg px-3 py-1.5 max-w-[250px] outline-none"
                                     >
                                         {voices.map((v, i) => (
-                                            <option key={i} value={i} className="text-gray-900">{v.name} ({v.lang})</option>
+                                            <option key={i} value={i} className="text-gray-900 dark:bg-slate-800 dark:text-white">{v.name} ({v.lang})</option>
                                         ))}
                                     </select>
                                 </div>
@@ -238,7 +238,7 @@ const ReadAloudTool = () => {
                                         onClick={() => goToPage(idx)}
                                         className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${idx === currentPage
                                             ? 'bg-brand-navy text-white'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                            : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
                                             }`}
                                     >
                                         Page {idx + 1}
@@ -248,8 +248,8 @@ const ReadAloudTool = () => {
                         )}
 
                         {/* Text display */}
-                        <div className="bg-gray-50 rounded-xl p-4 max-h-[40vh] overflow-y-auto">
-                            <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+                        <div className="bg-gray-50 dark:bg-slate-900 rounded-xl p-4 max-h-[40vh] overflow-y-auto border border-gray-100 dark:border-slate-700">
+                            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
                                 {text || '(No text found)'}
                             </p>
                         </div>
@@ -257,7 +257,7 @@ const ReadAloudTool = () => {
                         {/* Actions */}
                         <button
                             onClick={removeFile}
-                            className="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                            className="w-full py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                         >
                             Read Another PDF
                         </button>

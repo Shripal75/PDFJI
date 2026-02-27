@@ -45,14 +45,14 @@ function SortablePage({ id, url, index, rotation, isSelected, selectionMode, reo
             {...(disableDrag ? {} : listeners)}
             onClick={handleClick}
             className={clsx(
-                "relative group aspect-[2/3] bg-white rounded-lg shadow-sm border-2 overflow-hidden transition-all",
-                isDragging && "opacity-50 z-50 ring-2 ring-brand-navy",
+                "relative group aspect-[2/3] bg-white dark:bg-slate-800 rounded-lg shadow-sm border-2 overflow-hidden transition-all",
+                isDragging && "opacity-50 z-50 ring-2 ring-brand-navy dark:ring-blue-400",
                 (selectionMode || reorderMode) && "cursor-pointer",
                 reorderMode && reorderNumber > 0 ? "border-green-500 ring-2 ring-green-500/20" :
-                    isSelected ? "border-brand-navy ring-2 ring-brand-navy/20" : "border-gray-200 hover:shadow-md"
+                    isSelected ? "border-brand-navy dark:border-blue-400 ring-2 ring-brand-navy/20 dark:ring-blue-400/20" : "border-gray-200 dark:border-slate-700 hover:shadow-md"
             )}
         >
-            <div className="w-full h-full flex items-center justify-center bg-gray-50 overflow-hidden relative">
+            <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-slate-900 overflow-hidden relative">
                 <img
                     src={url}
                     alt={`Page ${index + 1}`}
@@ -71,8 +71,8 @@ function SortablePage({ id, url, index, rotation, isSelected, selectionMode, reo
 
                 {/* Selection overlay */}
                 {selectionMode && !reorderMode && isSelected && (
-                    <div className="absolute inset-0 bg-brand-navy/10 flex items-center justify-center">
-                        <CheckCircleIcon className="h-8 w-8 text-brand-navy bg-white rounded-full p-0.5 shadow-md" />
+                    <div className="absolute inset-0 bg-brand-navy/10 dark:bg-blue-400/10 flex items-center justify-center">
+                        <CheckCircleIcon className="h-8 w-8 text-brand-navy dark:text-blue-400 bg-white dark:bg-slate-800 rounded-full p-0.5 shadow-md" />
                     </div>
                 )}
             </div>
@@ -302,11 +302,11 @@ const OrganizeTool = () => {
     return (
         <div className="max-w-6xl mx-auto p-3 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">PDF Editor</h2>
-                <p className="text-gray-500 text-sm sm:text-base">Merge, split, reorder, rotate & delete PDF pages.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">PDF Editor</h2>
+                <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">Merge, split, reorder, rotate & delete PDF pages.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-3 sm:p-8 border border-white min-h-[500px] flex flex-col">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-3 sm:p-8 border border-white dark:border-slate-700 min-h-[500px] flex flex-col">
                 {pages.length === 0 ? (
                     loading ? (
                         <div className="flex flex-col items-center justify-center flex-grow">
@@ -316,7 +316,7 @@ const OrganizeTool = () => {
                     ) : (
                         <div className="flex-grow flex flex-col justify-center">
                             <Dropzone onDrop={handleDrop} multiple={true} accept={{ 'application/pdf': ['.pdf'] }} />
-                            <p className="text-center text-gray-400 mt-4 text-sm">Drop one or multiple PDF files to start editing</p>
+                            <p className="text-center text-gray-400 dark:text-gray-500 mt-4 text-sm">Drop one or multiple PDF files to start editing</p>
                         </div>
                     )
                 ) : (
@@ -324,8 +324,8 @@ const OrganizeTool = () => {
                         {/* Toolbar */}
                         <div className="flex flex-col gap-3 mb-4 sm:mb-6">
                             <div className="flex items-center justify-between">
-                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                    <DocumentIcon className="h-5 w-5 text-brand-navy" />
+                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <DocumentIcon className="h-5 w-5 text-brand-navy dark:text-blue-400" />
                                     {pages.length} Pages
                                 </h3>
                                 <div className="flex items-center gap-1.5 sm:gap-2">
@@ -335,7 +335,7 @@ const OrganizeTool = () => {
                                             "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all",
                                             reorderMode
                                                 ? "bg-green-500 text-white"
-                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                                : "bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-slate-600"
                                         )}
                                     >
                                         {reorderMode ? '✕ Cancel' : '↕ Reorder'}
@@ -346,12 +346,12 @@ const OrganizeTool = () => {
                                             "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all",
                                             selectionMode
                                                 ? "bg-brand-navy text-white"
-                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                                : "bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-slate-600"
                                         )}
                                     >
                                         {selectionMode ? 'Done' : 'Select'}
                                     </button>
-                                    <label className="px-2.5 sm:px-3 py-1.5 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors text-xs sm:text-sm font-medium cursor-pointer flex items-center gap-1.5">
+                                    <label className="px-2.5 sm:px-3 py-1.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-colors text-xs sm:text-sm font-medium cursor-pointer flex items-center gap-1.5">
                                         <PlusIcon className="h-4 w-4" />
                                         <span className="hidden sm:inline">Add PDF</span>
                                         <span className="sm:hidden">Add</span>
@@ -368,12 +368,12 @@ const OrganizeTool = () => {
 
                             {/* Reorder toolbar */}
                             {reorderMode && (
-                                <div className="flex items-center justify-between bg-green-50 px-3 py-2.5 rounded-xl border border-green-200">
+                                <div className="flex items-center justify-between bg-green-50 dark:bg-green-900/20 px-3 py-2.5 rounded-xl border border-green-200 dark:border-green-800">
                                     <div>
-                                        <p className="text-xs sm:text-sm font-medium text-green-800">
+                                        <p className="text-xs sm:text-sm font-medium text-green-800 dark:text-green-400">
                                             Tap pages in order: <span className="font-bold">{reorderSequence.length}</span> / {pages.length} selected
                                         </p>
-                                        <p className="text-[10px] sm:text-xs text-green-600 mt-0.5">Tap pages in the order you want them. Tap again to remove.</p>
+                                        <p className="text-[10px] sm:text-xs text-green-600 dark:text-green-500 mt-0.5">Tap pages in the order you want them. Tap again to remove.</p>
                                     </div>
                                     <button
                                         onClick={applyReorder}
@@ -387,14 +387,14 @@ const OrganizeTool = () => {
 
                             {/* Selection toolbar */}
                             {selectionMode && (
-                                <div className="flex items-center justify-between bg-brand-navy/5 px-3 py-2 rounded-xl animate-in fade-in duration-200">
-                                    <span className="text-xs sm:text-sm font-medium text-brand-navy">
+                                <div className="flex items-center justify-between bg-brand-navy/5 dark:bg-brand-navy/20 px-3 py-2 rounded-xl animate-in fade-in duration-200">
+                                    <span className="text-xs sm:text-sm font-medium text-brand-navy dark:text-blue-400">
                                         {selectedIds.size} selected
                                     </span>
                                     <div className="flex items-center gap-2">
-                                        <button onClick={selectAll} className="text-xs font-bold text-brand-navy hover:underline">All</button>
-                                        <button onClick={deselectAll} className="text-xs font-bold text-gray-400 hover:text-gray-600 hover:underline">Clear</button>
-                                        <div className="w-px h-4 bg-gray-300"></div>
+                                        <button onClick={selectAll} className="text-xs font-bold text-brand-navy dark:text-blue-400 hover:underline">All</button>
+                                        <button onClick={deselectAll} className="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:underline">Clear</button>
+                                        <div className="w-px h-4 bg-gray-300 dark:bg-slate-600"></div>
                                         <button
                                             onClick={rotateSelected}
                                             disabled={selectedIds.size === 0}
@@ -451,7 +451,7 @@ const OrganizeTool = () => {
                             </SortableContext>
                             <DragOverlay>
                                 {activeId ? (
-                                    <div className="aspect-[2/3] bg-white rounded-lg shadow-xl ring-2 ring-brand-navy overflow-hidden opacity-90">
+                                    <div className="aspect-[2/3] bg-white dark:bg-slate-800 rounded-lg shadow-xl ring-2 ring-brand-navy dark:ring-blue-400 overflow-hidden opacity-90">
                                         <img
                                             src={pages.find(p => p.id === activeId)?.url}
                                             className="w-full h-full object-contain"
@@ -463,12 +463,12 @@ const OrganizeTool = () => {
                         </DndContext>
 
                         {/* Bottom action bar */}
-                        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100 space-y-3">
+                        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100 dark:border-slate-700 space-y-3">
                             {selectionMode && selectedIds.size > 0 && (
                                 <button
                                     onClick={() => handleSave(true)}
                                     disabled={loading}
-                                    className="w-full py-3 sm:py-4 bg-brand-red hover:bg-brand-red/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-lg shadow-brand-red/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm sm:text-base"
+                                    className="w-full py-3 sm:py-4 bg-brand-red hover:bg-brand-red/90 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white dark:disabled:text-gray-500 rounded-xl font-semibold shadow-lg shadow-brand-red/20 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm sm:text-base"
                                 >
                                     <ArrowDownTrayIcon className="h-5 w-5" />
                                     Save Selected ({selectedIds.size} pages)
@@ -478,7 +478,7 @@ const OrganizeTool = () => {
                                 <button
                                     onClick={() => handleSave(false)}
                                     disabled={loading || pages.length === 0}
-                                    className="flex-1 py-3 sm:py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm sm:text-base"
+                                    className="flex-1 py-3 sm:py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white dark:disabled:text-gray-500 rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm sm:text-base"
                                 >
                                     {loading ? (
                                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -491,7 +491,7 @@ const OrganizeTool = () => {
                                 </button>
                                 <button
                                     onClick={reset}
-                                    className="px-4 sm:px-6 py-3 sm:py-4 text-red-500 hover:bg-red-50 rounded-xl transition-colors text-sm font-medium"
+                                    className="px-4 sm:px-6 py-3 sm:py-4 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors text-sm font-medium"
                                 >
                                     Clear
                                 </button>

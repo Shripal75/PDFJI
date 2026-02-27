@@ -139,21 +139,21 @@ const TranslateTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-3 sm:p-6 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Translate PDF</h2>
-                <p className="text-gray-500 text-sm sm:text-base">Translate PDF content between languages using Google Translate.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Translate PDF</h2>
+                <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">Translate PDF content between languages using Google Translate.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-4 sm:p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-4 sm:p-8 border border-white dark:border-slate-700">
                 {!file ? (
                     <Dropzone onDrop={handleDrop} accept={{ 'application/pdf': ['.pdf'] }} />
                 ) : !results ? (
                     <div className="space-y-6">
                         {/* File info */}
-                        <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-                            <div className="h-12 w-12 bg-brand-navy/10 rounded-xl flex items-center justify-center text-brand-navy font-bold text-xs">PDF</div>
+                        <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-700">
+                            <div className="h-12 w-12 bg-brand-navy/10 dark:bg-brand-navy/30 rounded-xl flex items-center justify-center text-brand-navy dark:text-blue-400 font-bold text-xs">PDF</div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-md">{file.name}</p>
-                                <p className="text-sm text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                <p className="font-medium text-gray-900 dark:text-white truncate max-w-[200px] sm:max-w-md">{file.name}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                             <button onClick={removeFile} className="text-red-500 hover:text-red-700 text-sm font-medium">Remove</button>
                         </div>
@@ -161,11 +161,11 @@ const TranslateTool = () => {
                         {/* Language selection */}
                         <div className="flex items-center gap-2 sm:gap-4 justify-center">
                             <div className="flex-1 max-w-[180px]">
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">From</label>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">From</label>
                                 <select
                                     value={sourceLang}
                                     onChange={(e) => setSourceLang(e.target.value)}
-                                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm font-medium bg-white focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy outline-none transition-all"
+                                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm font-medium bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy outline-none transition-all"
                                 >
                                     {LANGUAGES.map(l => (
                                         <option key={l.code} value={l.code}>{l.name}</option>
@@ -175,18 +175,18 @@ const TranslateTool = () => {
 
                             <button
                                 onClick={swapLanguages}
-                                className="mt-5 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                                className="mt-5 p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
                                 title="Swap languages"
                             >
-                                <ArrowsRightLeftIcon className="h-5 w-5 text-gray-600" />
+                                <ArrowsRightLeftIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
                             </button>
 
                             <div className="flex-1 max-w-[180px]">
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">To</label>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">To</label>
                                 <select
                                     value={targetLang}
                                     onChange={(e) => setTargetLang(e.target.value)}
-                                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm font-medium bg-white focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy outline-none transition-all"
+                                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm font-medium bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy outline-none transition-all"
                                 >
                                     {LANGUAGES.map(l => (
                                         <option key={l.code} value={l.code}>{l.name}</option>
@@ -199,7 +199,7 @@ const TranslateTool = () => {
                         <button
                             onClick={handleTranslate}
                             disabled={loading}
-                            className="w-full py-3 sm:py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                            className="w-full py-3 sm:py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 dark:disabled:bg-slate-700 text-white dark:disabled:text-gray-500 rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <>
@@ -218,25 +218,25 @@ const TranslateTool = () => {
                     <div className="space-y-5">
                         {/* Header with tabs */}
                         <div className="flex items-center justify-between flex-wrap gap-3">
-                            <h3 className="text-lg font-bold text-gray-900">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                                 {getLangName(sourceLang)} → {getLangName(targetLang)}
                             </h3>
-                            <div className="flex bg-gray-100 rounded-lg p-0.5">
+                            <div className="flex bg-gray-100 dark:bg-slate-900 rounded-lg p-0.5 border border-gray-200 dark:border-slate-700">
                                 <button
                                     onClick={() => setActiveTab('translated')}
-                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'translated' ? 'bg-white shadow text-brand-navy' : 'text-gray-500'}`}
+                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'translated' ? 'bg-white dark:bg-slate-700 shadow text-brand-navy dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                                 >
                                     Translated
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('original')}
-                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'original' ? 'bg-white shadow text-brand-navy' : 'text-gray-500'}`}
+                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'original' ? 'bg-white dark:bg-slate-700 shadow text-brand-navy dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                                 >
                                     Original
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('side-by-side')}
-                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'side-by-side' ? 'bg-white shadow text-brand-navy' : 'text-gray-500'} hidden sm:block`}
+                                    className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === 'side-by-side' ? 'bg-white dark:bg-slate-700 shadow text-brand-navy dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'} hidden sm:block`}
                                 >
                                     Side by Side
                                 </button>
@@ -246,9 +246,9 @@ const TranslateTool = () => {
                         {/* Results */}
                         <div className="max-h-[60vh] overflow-y-auto overflow-x-hidden space-y-4 pr-1">
                             {results.pages.map((page, idx) => (
-                                <div key={idx} className="border border-gray-100 rounded-xl overflow-hidden">
-                                    <div className="bg-gray-50 px-4 py-2 border-b border-gray-100">
-                                        <span className="text-xs font-bold text-gray-500 uppercase">Page {page.page}</span>
+                                <div key={idx} className="border border-gray-100 dark:border-slate-700 rounded-xl overflow-hidden bg-white dark:bg-slate-800">
+                                    <div className="bg-gray-50 dark:bg-slate-900 px-4 py-2 border-b border-gray-100 dark:border-slate-700">
+                                        <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Page {page.page}</span>
                                     </div>
                                     <div className={`p-4 ${activeTab === 'side-by-side' ? 'grid grid-cols-2 gap-4' : ''}`}>
                                         {(activeTab === 'original' || activeTab === 'side-by-side') && (
@@ -256,15 +256,15 @@ const TranslateTool = () => {
                                                 {activeTab === 'side-by-side' && (
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{getLangName(sourceLang)}</p>
                                                 )}
-                                                <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed break-words overflow-hidden">{page.original || '(No text)'}</p>
+                                                <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed break-words overflow-hidden">{page.original || '(No text)'}</p>
                                             </div>
                                         )}
                                         {(activeTab === 'translated' || activeTab === 'side-by-side') && (
                                             <div>
                                                 {activeTab === 'side-by-side' && (
-                                                    <p className="text-[10px] font-bold text-brand-navy uppercase mb-1">{getLangName(targetLang)}</p>
+                                                    <p className="text-[10px] font-bold text-brand-navy dark:text-blue-400 uppercase mb-1">{getLangName(targetLang)}</p>
                                                 )}
-                                                <p className="text-sm text-gray-900 whitespace-pre-wrap leading-relaxed font-medium break-words overflow-hidden">{page.translated}</p>
+                                                <p className="text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed font-medium break-words overflow-hidden">{page.translated}</p>
                                             </div>
                                         )}
                                     </div>
@@ -284,14 +284,14 @@ const TranslateTool = () => {
                             <div className="flex gap-3">
                                 <button
                                     onClick={downloadAsText}
-                                    className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm"
+                                    className="flex-1 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2 text-sm"
                                 >
                                     <DocumentTextIcon className="h-4 w-4" />
                                     Download as Text
                                 </button>
                                 <button
                                     onClick={removeFile}
-                                    className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-sm"
+                                    className="flex-1 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors text-sm"
                                 >
                                     Translate Another
                                 </button>

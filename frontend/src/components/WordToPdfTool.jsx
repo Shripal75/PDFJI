@@ -42,11 +42,11 @@ const WordToPdfTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Word to PDF</h2>
-                <p className="text-gray-500">Convert Word documents (.docx) to PDF format.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Word to PDF</h2>
+                <p className="text-gray-500 dark:text-gray-400">Convert Word documents (.docx) to PDF format.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-6">
                         {!file ? (
@@ -59,14 +59,14 @@ const WordToPdfTool = () => {
                                 }}
                             />
                         ) : (
-                            <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
+                            <div className="p-6 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 bg-brand-navy/10 rounded-lg">
                                         <DocumentTextIcon className="h-6 w-6 text-brand-navy" />
                                     </div>
                                     <div>
-                                        <span className="font-medium text-gray-700 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
-                                        <span className="text-xs text-gray-400">{(file.size / 1024).toFixed(1)} KB</span>
+                                        <span className="font-medium text-gray-700 dark:text-gray-200 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
+                                        <span className="text-xs text-gray-400 dark:text-gray-500">{(file.size / 1024).toFixed(1)} KB</span>
                                     </div>
                                 </div>
                                 <button onClick={() => setFile(null)} className="text-sm text-red-500 hover:text-red-700 font-medium">
@@ -79,7 +79,7 @@ const WordToPdfTool = () => {
                             <button
                                 onClick={handleConvert}
                                 disabled={isProcessing}
-                                className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 {isProcessing ? (
                                     <>
@@ -97,37 +97,37 @@ const WordToPdfTool = () => {
                     </div>
                 ) : (
                     <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                        <div className="h-20 w-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                             <DocumentTextIcon className="h-10 w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">Converted Successfully!</h3>
-                            <p className="text-gray-500 mt-2">Your Word document has been converted to PDF.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Converted Successfully!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Your Word document has been converted to PDF.</p>
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
                                     value={outputFilename.replace(/\.pdf$/i, '')}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
-                                <span className="text-gray-400 font-medium text-sm">.pdf</span>
+                                <span className="text-gray-400 dark:text-gray-500 font-medium text-sm">.pdf</span>
                             </div>
                         </div>
                         <div className="flex gap-4 justify-center">
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename.replace(/\.pdf$/i, '') || 'converted'}.pdf`}
-                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
+                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                                 Download PDF
                             </a>
                             <button
                                 onClick={() => { setFile(null); setDownloadUrl(null); }}
-                                className="px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="px-8 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                             >
                                 Convert Another
                             </button>

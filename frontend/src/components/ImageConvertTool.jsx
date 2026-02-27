@@ -65,11 +65,11 @@ const ImageConvertTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Convert Image</h2>
-                <p className="text-gray-500">Convert images between PNG, JPG, and WEBP formats.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Convert Image</h2>
+                <p className="text-gray-500 dark:text-gray-400">Convert images between PNG, JPG, and WEBP formats.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-8">
                         {!file ? (
@@ -81,14 +81,14 @@ const ImageConvertTool = () => {
                         ) : (
                             <>
                                 {/* File Info */}
-                                <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
+                                <div className="p-6 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 flex items-center justify-between">
                                     <div className="flex items-center gap-4">
-                                        <div className="h-16 w-16 rounded-xl overflow-hidden bg-gray-200 flex-shrink-0 border border-gray-200">
+                                        <div className="h-16 w-16 rounded-xl overflow-hidden bg-gray-200 dark:bg-slate-700 flex-shrink-0 border border-gray-200 dark:border-slate-600">
                                             <img src={preview} alt="Preview" className="h-full w-full object-cover" />
                                         </div>
                                         <div>
-                                            <span className="font-medium text-gray-700 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
-                                            <span className="text-xs text-gray-400">{(file.size / 1024).toFixed(1)} KB · {currentExt?.toUpperCase()}</span>
+                                            <span className="font-medium text-gray-700 dark:text-gray-200 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
+                                            <span className="text-xs text-gray-400 dark:text-gray-500">{(file.size / 1024).toFixed(1)} KB · {currentExt?.toUpperCase()}</span>
                                         </div>
                                     </div>
                                     <button onClick={reset} className="text-sm text-red-500 hover:text-red-700 font-medium transition-colors">
@@ -97,9 +97,9 @@ const ImageConvertTool = () => {
                                 </div>
 
                                 {/* Format Selection */}
-                                <div className="flex flex-col items-center gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <span className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Convert To</span>
-                                    <div className="flex bg-white rounded-xl p-1 shadow-sm border border-gray-200">
+                                <div className="flex flex-col items-center gap-4 p-6 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700">
+                                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Convert To</span>
+                                    <div className="flex bg-white dark:bg-slate-800 rounded-xl p-1 shadow-sm border border-gray-200 dark:border-slate-600">
                                         {formats.map((fmt) => (
                                             <button
                                                 key={fmt}
@@ -109,7 +109,7 @@ const ImageConvertTool = () => {
                                                     "px-6 py-2 rounded-lg text-sm font-bold transition-all",
                                                     targetFormat === fmt
                                                         ? "bg-brand-navy text-white shadow-md"
-                                                        : "text-gray-500 hover:text-gray-700",
+                                                        : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200",
                                                     (currentExt === fmt || (currentExt === 'jpeg' && fmt === 'jpg'))
                                                     && "opacity-30 cursor-not-allowed"
                                                 )}
@@ -118,7 +118,7 @@ const ImageConvertTool = () => {
                                             </button>
                                         ))}
                                     </div>
-                                    <p className="text-xs text-gray-400">
+                                    <p className="text-xs text-gray-400 dark:text-gray-500">
                                         {currentExt?.toUpperCase()} → {targetFormat.toUpperCase()}
                                     </p>
                                 </div>
@@ -128,7 +128,7 @@ const ImageConvertTool = () => {
                                     <button
                                         onClick={handleConvert}
                                         disabled={isProcessing}
-                                        className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                                        className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white dark:disabled:text-gray-500 rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                                     >
                                         {isProcessing ? (
                                             <>
@@ -149,7 +149,7 @@ const ImageConvertTool = () => {
                 ) : (
                     <div className="text-center space-y-8 py-10">
                         <div className="relative inline-block">
-                            <div className="h-24 w-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                            <div className="h-24 w-24 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                                 <PhotoIcon className="h-12 w-12" />
                             </div>
                             <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-lg">
@@ -161,11 +161,11 @@ const ImageConvertTool = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className="text-3xl font-extrabold text-gray-900">Converted!</h3>
-                            <p className="text-gray-500 mt-2 text-lg">Your image has been converted to {targetFormat.toUpperCase()}.</p>
+                            <h3 className="text-3xl font-extrabold text-gray-900 dark:text-white">Converted!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg">Your image has been converted to {targetFormat.toUpperCase()}.</p>
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
@@ -174,23 +174,23 @@ const ImageConvertTool = () => {
                                         const ext = targetFormat === 'jpeg' ? 'jpg' : targetFormat;
                                         setOutputFilename(e.target.value + '.' + ext);
                                     }}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white bg-white dark:bg-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
-                                <span className="text-gray-400 font-medium text-sm">.{targetFormat === 'jpeg' ? 'jpg' : targetFormat}</span>
+                                <span className="text-gray-400 dark:text-gray-500 font-medium text-sm">.{targetFormat === 'jpeg' ? 'jpg' : targetFormat}</span>
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <a
                                 href={downloadUrl}
                                 download={outputFilename}
-                                className="w-full sm:w-auto px-10 py-4 bg-brand-navy text-white rounded-xl font-bold shadow-xl shadow-brand-navy/20 hover:bg-brand-navy/90 transition-all flex items-center justify-center gap-2 hover:translate-y-[-2px] active:translate-y-0"
+                                className="w-full sm:w-auto px-10 py-4 bg-brand-navy text-white rounded-xl font-bold shadow-xl shadow-brand-navy/20 dark:shadow-none hover:bg-brand-navy/90 transition-all flex items-center justify-center gap-2 hover:translate-y-[-2px] active:translate-y-0"
                             >
                                 <ArrowDownTrayIcon className="h-6 w-6" />
                                 Download {targetFormat.toUpperCase()} Image
                             </a>
                             <button
                                 onClick={reset}
-                                className="w-full sm:w-auto px-10 py-4 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-300 transition-all"
+                                className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-slate-600 hover:border-gray-300 dark:hover:border-slate-500 transition-all"
                             >
                                 Convert Another
                             </button>

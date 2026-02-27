@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import MergeTool from './components/MergeTool';
 import CompressTool from './components/CompressTool';
@@ -33,7 +33,9 @@ import {
   HomeIcon,
   SwatchIcon,
   LanguageIcon,
-  SpeakerWaveIcon
+  SpeakerWaveIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Footer from './components/Footer';
@@ -41,6 +43,24 @@ import Footer from './components/Footer';
 function App() {
   const [activeTool, setActiveTool] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Dark mode state
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) {
+      return JSON.parse(saved);
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
 
   const tools = {
     'pdf-editor': { id: 'pdf-editor', name: 'PDF Editor', icon: PencilSquareIcon, description: 'Merge, split, reorder, rotate & delete pages.' },
@@ -52,7 +72,7 @@ function App() {
     'pdf-to-word': { id: 'pdf-to-word', name: 'PDF to Word', icon: DocumentTextIcon, description: 'Convert PDF to editable DOCX.' },
     'pdf-to-ppt': { id: 'pdf-to-ppt', name: 'PDF to PowerPoint', icon: PresentationChartBarIcon, description: 'Convert PDF slides to editable PPTX.' },
     'extract': { id: 'extract', name: 'Extract Text', icon: DocumentTextIcon, description: 'Extract raw text from PDF files.' },
-    'ocr': { id: 'ocr', name: 'Handwriting OCR', icon: SparklesIcon, description: 'Extract text from scanned PDFs & images.', beta: true },
+    // 'ocr': { id: 'ocr', name: 'Handwriting OCR', icon: SparklesIcon, description: 'Extract text from scanned PDFs & images.', beta: true },
     'compress-image': { id: 'compress-image', name: 'Compress Image', icon: PhotoIcon, description: 'Compress images with smart quality estimation.' },
     'img-to-pdf': { id: 'img-to-pdf', name: 'Image to PDF', icon: PhotoIcon, description: 'Convert images to a single PDF file.' },
     'word-to-pdf': { id: 'word-to-pdf', name: 'Word to PDF', icon: DocumentTextIcon, description: 'Convert DOCX to PDF.' },
@@ -73,7 +93,7 @@ function App() {
     },
     {
       title: 'Text Convert',
-      items: ['extract', 'ocr']
+      items: ['extract']
     },
     {
       title: 'Img Tool',
@@ -111,8 +131,8 @@ function App() {
       default: return (
         <div className="max-w-[1600px] mx-auto">
           <div className="py-12 mb-8 text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Welcome to <span className="text-brand-navy">PDF</span><span className="text-brand-red">JI</span></h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">Welcome to <span className="text-brand-navy dark:text-blue-400">PDF</span><span className="text-brand-red">JI</span></h2>
+            <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
               All your PDF and document conversion needs in one place.
             </p>
           </div>
@@ -122,25 +142,25 @@ function App() {
                 key={tool.id}
                 onClick={() => setActiveTool(tool.id)}
                 className={clsx(
-                  "flex flex-col items-center p-6 rounded-2xl border transition-all duration-200 text-left group bg-white",
-                  "border-gray-200 hover:border-brand-red hover:shadow-lg hover:shadow-gray-100"
+                  "flex flex-col items-center p-6 rounded-2xl border transition-all duration-200 text-left group bg-white dark:bg-slate-800",
+                  "border-gray-200 dark:border-slate-700 hover:border-brand-red dark:hover:border-brand-red hover:shadow-lg hover:shadow-gray-100 dark:hover:shadow-none"
                 )}
               >
                 <div className={clsx(
                   "p-3 rounded-xl mb-4 transition-colors",
-                  "bg-gray-100 text-gray-500 group-hover:bg-brand-red/10 group-hover:text-brand-red"
+                  "bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 group-hover:bg-brand-red/10 dark:group-hover:bg-brand-red/20 group-hover:text-brand-red dark:group-hover:text-brand-red"
                 )}>
                   <tool.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold mb-1 text-gray-900 text-center">
+                <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white text-center">
                   {tool.name}
                 </h3>
                 {tool.beta && (
-                  <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide mb-1">
+                  <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide mb-1">
                     BETA
                   </span>
                 )}
-                <p className="text-sm text-gray-500 text-center">{tool.description}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">{tool.description}</p>
               </button>
             ))}
           </div>
@@ -150,34 +170,43 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 dark:bg-slate-900 overflow-hidden transition-colors duration-300">
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/20 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/20 dark:bg-black/50 z-20 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={clsx(
-        "fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out flex flex-col",
+        "fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out flex flex-col",
         isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
-        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+        <div className="p-6 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setActiveTool(null)}
           >
             <img src="/logo.png" alt="PDFJI Logo" className="h-10 w-auto object-contain" />
-            <span className="text-xl font-black text-brand-navy tracking-tight">PDF<span className="text-brand-red">JI</span></span>
+            <span className="text-xl font-black text-brand-navy dark:text-white tracking-tight">PDF<span className="text-brand-red">JI</span></span>
           </div>
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="lg:hidden p-1 text-gray-400 hover:text-gray-600"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDarkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+            </button>
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+            >
+              <XMarkIcon className="h-6 w-6" />
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-8">
@@ -186,8 +215,8 @@ function App() {
             className={clsx(
               "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-semibold",
               activeTool === null
-                ? "bg-brand-navy text-white shadow-lg shadow-brand-navy/20"
-                : "text-gray-600 hover:bg-gray-100"
+                ? "bg-brand-navy text-white shadow-lg shadow-brand-navy/20 dark:shadow-none"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
             )}
           >
             <HomeIcon className="h-5 w-5" />
@@ -208,8 +237,8 @@ function App() {
                       className={clsx(
                         "w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium group",
                         activeTool === toolId
-                          ? "bg-brand-orange/10 text-brand-orange"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-brand-orange/10 dark:bg-brand-orange/20 text-brand-orange dark:text-orange-400"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white"
                       )}
                     >
                       <tool.icon className={clsx(
@@ -222,7 +251,7 @@ function App() {
                         ) : tool.name}
                       </span>
                       {tool.beta && (
-                        <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                        <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
                           BETA
                         </span>
                       )}
@@ -234,8 +263,8 @@ function App() {
           ))}
         </div>
 
-        <div className="p-4 border-t border-gray-100">
-          <div className="text-xs text-center text-gray-400">
+        <div className="p-4 border-t border-gray-100 dark:border-slate-700">
+          <div className="text-xs text-center text-gray-400 dark:text-gray-500">
             &copy; {new Date().getFullYear()} PDFJI. All rights reserved.
           </div>
         </div>
@@ -244,21 +273,21 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
-        <header className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between flex-shrink-0">
+        <header className="lg:hidden bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between flex-shrink-0">
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            className="p-2 -ml-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg"
           >
             <Bars3Icon className="h-6 w-6" />
           </button>
-          <span className="font-bold text-gray-900 truncate">
+          <span className="font-bold text-gray-900 dark:text-white truncate">
             {activeTool ? tools[activeTool]?.name : 'Dashboard'}
           </span>
           <div className="w-10" /> {/* Spacer for centering */}
         </header>
 
         {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto bg-gray-50/50">
+        <main className="flex-1 overflow-y-auto bg-gray-50/50 dark:bg-slate-900">
           <div className="flex flex-col min-h-full">
             <div className="flex-1 p-4 sm:p-6 lg:p-8">
               <div className="max-w-[1600px] mx-auto h-full">

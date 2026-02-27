@@ -1,16 +1,15 @@
---extra-index-url https://download.pytorch.org/whl/cpu
-torch
-torchvision
+# --extra-index-url https://download.pytorch.org/whl/cpu
+# torch
+# torchvision
 fastapi
 uvicorn
 python-multipart
-opencv-python-headless
+# opencv-python-headless
 pypdf
 pdf2docx
 pymupdf
 Pillow
 python-pptx
-easyocr
+# easyocr
 deep-translator
 fpdf2
-

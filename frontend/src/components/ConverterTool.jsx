@@ -141,28 +141,28 @@ const ConverterTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">PDF to Word</h2>
-                <p className="text-gray-500">Convert your PDF documents to editable Word files.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">PDF to Word</h2>
+                <p className="text-gray-500 dark:text-gray-400">Convert your PDF documents to editable Word files.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-6">
                         {!file ? (
                             <Dropzone onDrop={handleDrop} multiple={false} />
                         ) : (
                             <div className="space-y-4">
-                                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-700">
                                     <div className="flex items-center gap-4">
                                         <div className="h-10 w-10 bg-brand-navy/10 rounded-lg flex items-center justify-center text-brand-navy font-bold text-xs uppercase">
                                             DOC
                                         </div>
                                         <div>
-                                            <p className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-md">{file.name}</p>
-                                            <p className="text-sm text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                            <p className="font-medium text-gray-900 dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{file.name}</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                         </div>
                                     </div>
-                                    <button onClick={removeFile} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-red-500 transition-colors">
+                                    <button onClick={removeFile} className="p-2 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500 transition-colors">
                                         <TrashIcon className="h-5 w-5" />
                                     </button>
                                 </div>
@@ -170,30 +170,30 @@ const ConverterTool = () => {
                                 {isLoadingPreviews ? (
                                     <div className="py-8 flex flex-col items-center gap-4">
                                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-navy"></div>
-                                        <p className="text-sm text-gray-500">Loading pages...</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Loading pages...</p>
                                     </div>
                                 ) : previewPages.length > 0 && (
                                     <div className="space-y-3 animate-in fade-in duration-500">
                                         <div className="flex justify-between items-center px-1">
-                                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Select Pages</h3>
+                                            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Select Pages</h3>
                                             <div className="flex gap-3">
-                                                <button onClick={selectAll} className="text-xs font-bold text-brand-navy hover:underline">All</button>
-                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 hover:text-gray-600 hover:underline">Clear</button>
+                                                <button onClick={selectAll} className="text-xs font-bold text-brand-navy dark:text-blue-400 hover:underline">All</button>
+                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:underline">Clear</button>
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 rounded-xl bg-gray-50/50">
+                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 dark:border-slate-700 rounded-xl bg-gray-50/50 dark:bg-slate-900/50">
                                             {previewPages.map((url, i) => (
                                                 <div
                                                     key={i}
                                                     onClick={() => togglePage(i)}
                                                     className={clsx(
-                                                        "relative cursor-pointer group aspect-[2/3] bg-white rounded-lg shadow-sm border-2 overflow-hidden transition-all",
+                                                        "relative cursor-pointer group aspect-[2/3] bg-white dark:bg-slate-800 rounded-lg shadow-sm border-2 overflow-hidden transition-all",
                                                         selectedPages.has(i)
-                                                            ? "border-brand-navy ring-2 ring-brand-navy/10 scale-95"
-                                                            : "border-gray-200 hover:border-gray-300"
+                                                            ? "border-brand-navy dark:border-blue-400 ring-2 ring-brand-navy/10 dark:ring-blue-400/10 scale-95"
+                                                            : "border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500"
                                                     )}
                                                 >
-                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50" />
+                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50 dark:bg-slate-800" />
 
                                                     <div className={clsx(
                                                         "absolute inset-0 bg-brand-navy/10 transition-opacity flex items-center justify-center",
@@ -210,7 +210,7 @@ const ConverterTool = () => {
                                                 </div>
                                             ))}
                                         </div>
-                                        <p className="text-center text-[10px] text-gray-400">
+                                        <p className="text-center text-[10px] text-gray-400 dark:text-gray-500">
                                             {selectedPages.size} pages selected for conversion
                                         </p>
                                     </div>
@@ -219,7 +219,7 @@ const ConverterTool = () => {
                                 <button
                                     onClick={handleConvert}
                                     disabled={loading || (previewPages.length > 0 && selectedPages.size === 0)}
-                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 transition-all active:scale-[0.98]"
+                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white dark:disabled:text-gray-500 rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all active:scale-[0.98]"
                                 >
                                     {loading ? 'Converting...' : 'Convert to Word'}
                                 </button>
@@ -228,43 +228,43 @@ const ConverterTool = () => {
                     </div>
                 ) : (
                     <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                        <div className="h-20 w-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                             <ArrowDownTrayIcon className="h-10 w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">Conversion Complete!</h3>
-                            <p className="text-gray-500 mt-2">Your document has been converted to Word.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Conversion Complete!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Your document has been converted to Word.</p>
                             {stats && (
-                                <div className="mt-4 inline-block px-4 py-2 bg-gray-50 rounded-lg border border-gray-100">
-                                    <span className="text-sm font-medium text-gray-600">New Size: </span>
-                                    <span className="text-sm font-bold text-gray-900">{stats.size} MB</span>
+                                <div className="mt-4 inline-block px-4 py-2 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-100 dark:border-slate-700">
+                                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">New Size: </span>
+                                    <span className="text-sm font-bold text-gray-900 dark:text-gray-200">{stats.size} MB</span>
                                 </div>
                             )}
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
                                     value={outputFilename}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
-                                <span className="text-gray-400 font-medium text-sm">.docx</span>
+                                <span className="text-gray-400 dark:text-gray-500 font-medium text-sm">.docx</span>
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename}.docx`}
-                                className="w-full sm:w-auto px-8 py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-brand-navy/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-navy/20"
+                                className="w-full sm:w-auto px-8 py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-brand-navy/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-navy/20 dark:shadow-none"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                                 Download Word Doc
                             </a>
                             <button
                                 onClick={removeFile}
-                                className="px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="px-8 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                             >
                                 Start Over
                             </button>

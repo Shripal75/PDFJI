@@ -142,11 +142,11 @@ const OcrTool = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Handwriting to Text <sup className="text-red-500 italic text-base font-normal ml-1">(BETA)</sup></h2>
-                <p className="text-gray-500">Extract text from handwritten or scanned PDFs and images using OCR.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Handwriting to Text <sup className="text-red-500 dark:text-red-400 italic text-base font-normal ml-1">(BETA)</sup></h2>
+                <p className="text-gray-500 dark:text-gray-400">Extract text from handwritten or scanned PDFs and images using OCR.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!extractedText ? (
                     <div className="space-y-6">
                         {!file ? (
@@ -156,14 +156,14 @@ const OcrTool = () => {
                             }} />
                         ) : (
                             <div className="space-y-4">
-                                <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
+                                <div className="p-6 bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-brand-red/10 rounded-lg">
+                                        <div className="p-2 bg-brand-red/10 dark:bg-brand-red/20 rounded-lg">
                                             <PencilSquareIcon className="h-6 w-6 text-brand-red" />
                                         </div>
                                         <div>
-                                            <span className="font-medium text-gray-700 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
-                                            <span className="text-xs text-gray-400">{(file.size / 1024).toFixed(1)} KB</span>
+                                            <span className="font-medium text-gray-700 dark:text-gray-200 block truncate max-w-[200px] sm:max-w-md">{file.name}</span>
+                                            <span className="text-xs text-gray-400 dark:text-gray-500">{(file.size / 1024).toFixed(1)} KB</span>
                                         </div>
                                     </div>
                                     <button onClick={() => { setFile(null); setPreviewPages([]); }} className="text-sm text-red-500 hover:text-red-700 font-medium">
@@ -174,30 +174,30 @@ const OcrTool = () => {
                                 {isLoadingPreviews ? (
                                     <div className="py-8 flex flex-col items-center gap-4">
                                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-red"></div>
-                                        <p className="text-sm text-gray-500">Loading pages...</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Loading pages...</p>
                                     </div>
                                 ) : previewPages.length > 0 && (
                                     <div className="space-y-3 animate-in fade-in duration-500">
                                         <div className="flex justify-between items-center px-1">
-                                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Select Pages to OCR</h3>
+                                            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Select Pages to OCR</h3>
                                             <div className="flex gap-3">
                                                 <button onClick={selectAll} className="text-xs font-bold text-brand-red hover:underline">All</button>
-                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 hover:text-gray-600 hover:underline">Clear</button>
+                                                <button onClick={deselectAll} className="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:underline">Clear</button>
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 rounded-xl bg-gray-50/50">
+                                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-h-[300px] overflow-y-auto p-2 border border-gray-100 dark:border-slate-700 rounded-xl bg-gray-50/50 dark:bg-slate-900/50">
                                             {previewPages.map((url, i) => (
                                                 <div
                                                     key={i}
                                                     onClick={() => togglePage(i)}
                                                     className={clsx(
-                                                        "relative cursor-pointer group aspect-[2/3] bg-white rounded-lg shadow-sm border-2 overflow-hidden transition-all",
+                                                        "relative cursor-pointer group aspect-[2/3] bg-white dark:bg-slate-800 rounded-lg shadow-sm border-2 overflow-hidden transition-all",
                                                         selectedPages.has(i)
                                                             ? "border-brand-red ring-2 ring-brand-red/10 scale-95"
-                                                            : "border-gray-200 hover:border-gray-300"
+                                                            : "border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500"
                                                     )}
                                                 >
-                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50" />
+                                                    <img src={url} alt={`Page ${i + 1}`} className="w-full h-full object-contain bg-gray-50 dark:bg-slate-900" />
 
                                                     <div className={clsx(
                                                         "absolute inset-0 bg-brand-red/10 transition-opacity flex items-center justify-center",
@@ -226,7 +226,7 @@ const OcrTool = () => {
                             <button
                                 onClick={handleExtract}
                                 disabled={isProcessing || (previewPages.length > 0 && selectedPages.size === 0)}
-                                className="w-full py-4 bg-brand-red hover:bg-brand-red/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-red/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                className="w-full py-4 bg-brand-red hover:bg-brand-red/90 text-white disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:text-gray-500 rounded-xl font-bold text-lg shadow-lg shadow-brand-red/20 dark:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 {isProcessing ? (
                                     <>
@@ -245,11 +245,11 @@ const OcrTool = () => {
                 ) : (
                     <div className="space-y-6">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-bold text-gray-900">Extracted Text</h3>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Extracted Text</h3>
                             <div className="flex gap-2">
                                 <button
                                     onClick={handleCopy}
-                                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5"
+                                    className="px-4 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5"
                                 >
                                     <ClipboardDocumentIcon className="h-4 w-4" />
                                     {copied ? 'Copied!' : 'Copy'}
@@ -264,13 +264,13 @@ const OcrTool = () => {
                             </div>
                         </div>
 
-                        <div className="bg-gray-50 rounded-2xl border border-gray-100 p-6 max-h-96 overflow-y-auto">
-                            <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono leading-relaxed">{extractedText}</pre>
+                        <div className="bg-gray-50 dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-6 max-h-96 overflow-y-auto">
+                            <pre className="whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-300 font-mono leading-relaxed">{extractedText}</pre>
                         </div>
 
                         <button
                             onClick={() => { setFile(null); setExtractedText(''); }}
-                            className="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                            className="w-full py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                         >
                             Process Another Document
                         </button>

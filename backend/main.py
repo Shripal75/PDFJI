@@ -362,64 +362,65 @@ async def pdf_to_images_endpoint(file: UploadFile = File(...), format: str = For
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/ocr-pdf")
-async def ocr_pdf_endpoint(file: UploadFile = File(...), pages: str = Form("")):
-    """Extract text from handwritten/scanned PDF or image using OCR."""
-    try:
-        file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-        
-        import fitz
-        import easyocr
-        from utils import parse_page_range
-        
-        reader = easyocr.Reader(['en'], gpu=False)
-        
-        ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
-        image_exts = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'tif', 'webp', 'gif'}
-        
-        all_text = []
-        
-        if ext == 'pdf':
-            # PDF: render each page to image, then OCR
-            doc = fitz.open(file_path)
-            total_pages = len(doc)
-            
-            # Determine pages to process
-            if pages.strip():
-                page_indices = parse_page_range(pages, total_pages)
-            else:
-                page_indices = list(range(total_pages))
-            
-            for page_num in page_indices:
-                if 0 <= page_num < total_pages:
-                    page = doc.load_page(page_num)
-                    pix = page.get_pixmap(matrix=fitz.Matrix(2.0, 2.0))
-                    img_bytes = pix.tobytes("png")
-                    results = reader.readtext(img_bytes, detail=0, paragraph=True)
-                    page_text = "\n".join(results)
-                    if page_text.strip():
-                        all_text.append(f"--- Page {page_num + 1} ---\n{page_text}")
-            doc.close()
-        elif ext in image_exts:
-            # Image file: OCR directly
-            results = reader.readtext(file_path, detail=0, paragraph=True)
-            page_text = "\n".join(results)
-            if page_text.strip():
-                all_text.append(page_text)
-        else:
-            raise HTTPException(status_code=400, detail=f"Unsupported file type: .{ext}")
-        
-        full_text = "\n\n".join(all_text) if all_text else "No text detected in the document."
-        
-        return {"text": full_text}
-    except HTTPException:
-        raise
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/ocr-pdf")
+# async def ocr_pdf_endpoint(file: UploadFile = File(...), pages: str = Form("")):
+#     """Extract text from handwritten/scanned PDF or image using OCR."""
+#     try:
+#         file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+#         with open(file_path, "wb") as buffer:
+#             shutil.copyfileobj(file.file, buffer)
+#         
+#         import fitz
+#         # import easyocr
+#         from utils import parse_page_range
+#         
+#         # reader = easyocr.Reader(['en'], gpu=False)
+#         
+#         ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+#         image_exts = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'tif', 'webp', 'gif'}
+#         
+#         all_text = []
+#         
+#         if ext == 'pdf':
+#             # PDF: render each page to image, then OCR
+#             doc = fitz.open(file_path)
+#             total_pages = len(doc)
+#             
+#             # Determine pages to process
+#             if pages.strip():
+#                 page_indices = parse_page_range(pages, total_pages)
+#             else:
+#                 page_indices = list(range(total_pages))
+#             
+#             for page_num in page_indices:
+#                 if 0 <= page_num < total_pages:
+#                     page = doc.load_page(page_num)
+#                     pix = page.get_pixmap(matrix=fitz.Matrix(2.0, 2.0))
+#                     img_bytes = pix.tobytes("png")
+#                     # results = reader.readtext(img_bytes, detail=0, paragraph=True)
+#                     # page_text = "\n".join(results)
+#                     # if page_text.strip():
+#                     #     all_text.append(f"--- Page {page_num + 1} ---\n{page_text}")
+#             doc.close()
+#         elif ext in image_exts:
+#             # Image file: OCR directly
+#             # results = reader.readtext(file_path, detail=0, paragraph=True)
+#             # page_text = "\n".join(results)
+#             # if page_text.strip():
+#             #     all_text.append(page_text)
+#             pass
+#         else:
+#             raise HTTPException(status_code=400, detail=f"Unsupported file type: .{ext}")
+#         
+#         full_text = "\n\n".join(all_text) if all_text else "No text detected in the document."
+#         
+#         return {"text": full_text}
+#     except HTTPException:
+#         raise
+#     except Exception as e:
+#         import traceback
+#         traceback.print_exc()
+#         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/compress-image")
 async def compress_image_endpoint(file: UploadFile = File(...), quality: int = Form(50), target_size: Optional[int] = Form(None)):

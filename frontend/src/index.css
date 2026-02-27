@@ -13,6 +13,9 @@
   --font-sans: "Montserrat", sans-serif;
 }
 
+/* Enable manual dark mode via .dark class */
+@variant dark (&:is(.dark *));
+
 @layer base {
   body {
     background-color: #f8fafc;
@@ -20,6 +23,14 @@
     color: #0f172a;
     /* text-slate-900 */
     font-family: "Montserrat", sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    background-color: #0f172a;
+    /* bg-slate-900 */
+    color: #f8fafc;
+    /* text-slate-50 */
   }
 }
 

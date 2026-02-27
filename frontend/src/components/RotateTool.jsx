@@ -86,11 +86,11 @@ const RotateTool = () => {
     return (
         <div className="max-w-6xl mx-auto p-6 space-y-8">
             <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-gray-900">Rotate PDF</h2>
-                <p className="text-gray-500">Rotate individual pages of your PDF document.</p>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Rotate PDF</h2>
+                <p className="text-gray-500 dark:text-gray-400">Rotate individual pages of your PDF document.</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-white">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none p-8 border border-white dark:border-slate-700">
                 {!downloadUrl ? (
                     <div className="space-y-6">
                         {!file ? (
@@ -98,26 +98,26 @@ const RotateTool = () => {
                         ) : isLoading ? (
                             <div className="flex flex-col items-center justify-center py-20">
                                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-navy mb-4"></div>
-                                <p className="text-gray-500">Loading page previews...</p>
+                                <p className="text-gray-500 dark:text-gray-400">Loading page previews...</p>
                             </div>
                         ) : (
                             <>
                                 {/* Toolbar */}
                                 <div className="flex items-center justify-between flex-wrap gap-4">
                                     <div className="flex items-center gap-2">
-                                        <span className="font-medium text-gray-700 truncate max-w-xs">{file.name}</span>
-                                        <span className="text-sm text-gray-400">({pages.length} pages)</span>
+                                        <span className="font-medium text-gray-700 dark:text-gray-200 truncate max-w-xs">{file.name}</span>
+                                        <span className="text-sm text-gray-400 dark:text-gray-500">({pages.length} pages)</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <button
                                             onClick={() => rotateAll(-90)}
-                                            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                                            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-slate-700 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
                                         >
                                             <ArrowUturnLeftIcon className="h-4 w-4" /> Rotate All Left
                                         </button>
                                         <button
                                             onClick={() => rotateAll(90)}
-                                            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                                            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-slate-700 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
                                         >
                                             <ArrowUturnRightIcon className="h-4 w-4" /> Rotate All Right
                                         </button>
@@ -133,8 +133,8 @@ const RotateTool = () => {
                                 {/* Page Grid */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                     {pages.map((page, index) => (
-                                        <div key={index} className="bg-gray-50 rounded-xl border border-gray-200 p-3 flex flex-col items-center gap-2 group hover:shadow-md transition-shadow">
-                                            <div className="relative w-full aspect-[3/4] bg-white rounded-lg overflow-hidden flex items-center justify-center border border-gray-100">
+                                        <div key={index} className="bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700 p-3 flex flex-col items-center gap-2 group hover:shadow-md transition-shadow">
+                                            <div className="relative w-full aspect-[3/4] bg-white dark:bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center border border-gray-100 dark:border-slate-700">
                                                 <img
                                                     src={page.url}
                                                     alt={`Page ${index + 1}`}
@@ -147,21 +147,21 @@ const RotateTool = () => {
                                                     </div>
                                                 )}
                                             </div>
-                                            <p className="text-xs font-medium text-gray-500">Page {index + 1}</p>
+                                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Page {index + 1}</p>
                                             <div className="flex gap-2">
                                                 <button
                                                     onClick={() => rotatePage(index, -90)}
-                                                    className="p-1.5 rounded-lg bg-white border border-gray-200 hover:bg-brand-red/5 hover:border-brand-red/30 transition-colors"
+                                                    className="p-1.5 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 hover:bg-brand-red/5 dark:hover:bg-brand-red/10 hover:border-brand-red/30 dark:hover:border-brand-red/30 transition-colors"
                                                     title="Rotate Left"
                                                 >
-                                                    <ArrowUturnLeftIcon className="h-4 w-4 text-gray-600" />
+                                                    <ArrowUturnLeftIcon className="h-4 w-4 text-gray-600 dark:text-gray-300" />
                                                 </button>
                                                 <button
                                                     onClick={() => rotatePage(index, 90)}
-                                                    className="p-1.5 rounded-lg bg-white border border-gray-200 hover:bg-brand-red/5 hover:border-brand-red/30 transition-colors"
+                                                    className="p-1.5 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 hover:bg-brand-red/5 dark:hover:bg-brand-red/10 hover:border-brand-red/30 dark:hover:border-brand-red/30 transition-colors"
                                                     title="Rotate Right"
                                                 >
-                                                    <ArrowUturnRightIcon className="h-4 w-4 text-gray-600" />
+                                                    <ArrowUturnRightIcon className="h-4 w-4 text-gray-600 dark:text-gray-300" />
                                                 </button>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@ const RotateTool = () => {
                                 <button
                                     onClick={handleSave}
                                     disabled={!hasRotations || isProcessing}
-                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="w-full py-4 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-navy/20 dark:shadow-none transition-all disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:text-gray-500 disabled:opacity-100 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {isProcessing ? (
                                         <>
@@ -191,21 +191,21 @@ const RotateTool = () => {
                     </div>
                 ) : (
                     <div className="text-center space-y-6 py-10">
-                        <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                        <div className="h-20 w-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto">
                             <ArrowPathIcon className="h-10 w-10" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900">PDF Rotated Successfully!</h3>
-                            <p className="text-gray-500 mt-2">Your pages have been rotated individually.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">PDF Rotated Successfully!</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Your pages have been rotated individually.</p>
                         </div>
                         <div className="w-full max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-600 mb-2 text-left">Output Filename</label>
+                            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 text-left">Output Filename</label>
                             <div className="flex items-center gap-1">
                                 <input
                                     type="text"
                                     value={outputFilename.replace(/\.pdf$/i, '')}
                                     onChange={(e) => setOutputFilename(e.target.value)}
-                                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
+                                    className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-900 dark:text-white bg-white dark:bg-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                                 />
                                 <span className="text-gray-400 font-medium text-sm">.pdf</span>
                             </div>
@@ -214,14 +214,14 @@ const RotateTool = () => {
                             <a
                                 href={downloadUrl}
                                 download={`${outputFilename.replace(/\.pdf$/i, '') || 'rotated'}.pdf`}
-                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
+                                className="px-8 py-3 bg-brand-navy text-white rounded-xl font-semibold shadow-lg shadow-brand-navy/20 dark:shadow-none hover:bg-brand-navy/90 transition-colors flex items-center gap-2"
                             >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                                 Download PDF
                             </a>
                             <button
                                 onClick={() => { setFile(null); setPages([]); setDownloadUrl(null); }}
-                                className="px-8 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                                className="px-8 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors"
                             >
                                 Rotate Another
                             </button>
