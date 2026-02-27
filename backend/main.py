@@ -25,6 +25,7 @@ UPLOAD_DIR = "uploads"
 OUTPUT_DIR = "outputs"
 PREVIEW_DIR = "previews"
 
+# CRITICAL: Create directories BEFORE mounting them
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(PREVIEW_DIR, exist_ok=True)
@@ -229,7 +230,13 @@ async def extract_pages_endpoint(file: UploadFile = File(...)):
     except Exception as e:
         import traceback
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        # Clean up the file if extraction failed
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        except:
+            pass
+        raise HTTPException(status_code=500, detail=f"Failed to extract PDF pages: {str(e)}")
 
 @app.post("/rotate-pdf")
 async def rotate_pdf_endpoint(file: UploadFile = File(...), rotations: str = Form(...)):

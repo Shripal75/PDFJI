@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pdfji-backend
+    env: python
+    branch: main
+    rootDir: backend
+    buildCommand: |
+      apt-get update && apt-get install -y libgl1-mesa-glx python3-opencv tesseract-ocr
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
