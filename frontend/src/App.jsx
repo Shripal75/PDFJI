@@ -70,13 +70,13 @@ function App() {
     'compress': { id: 'compress', name: 'Compress', icon: WrenchScrewdriverIcon, description: 'Reduce PDF file size.' },
     'pdf-to-img': { id: 'pdf-to-img', name: 'PDF to Image', icon: PhotoIcon, description: 'Convert PDF pages to images.' },
     'pdf-to-word': { id: 'pdf-to-word', name: 'PDF to Word', icon: DocumentTextIcon, description: 'Convert PDF to editable DOCX.' },
-    'pdf-to-ppt': { id: 'pdf-to-ppt', name: 'PDF to PowerPoint', icon: PresentationChartBarIcon, description: 'Convert PDF slides to editable PPTX.' },
+    // 'pdf-to-ppt': { id: 'pdf-to-ppt', name: 'PDF to PowerPoint', icon: PresentationChartBarIcon, description: 'Convert PDF slides to editable PPTX.' },
     'extract': { id: 'extract', name: 'Extract Text', icon: DocumentTextIcon, description: 'Extract raw text from PDF files.' },
     // 'ocr': { id: 'ocr', name: 'Handwriting OCR', icon: SparklesIcon, description: 'Extract text from scanned PDFs & images.', beta: true },
     'compress-image': { id: 'compress-image', name: 'Compress Image', icon: PhotoIcon, description: 'Compress images with smart quality estimation.' },
     'img-to-pdf': { id: 'img-to-pdf', name: 'Image to PDF', icon: PhotoIcon, description: 'Convert images to a single PDF file.' },
     'word-to-pdf': { id: 'word-to-pdf', name: 'Word to PDF', icon: DocumentTextIcon, description: 'Convert DOCX to PDF.' },
-    'ppt-to-pdf': { id: 'ppt-to-pdf', name: 'PowerPoint to PDF', icon: PresentationChartBarIcon, description: 'Convert PowerPoint presentations to PDF.' },
+    // 'ppt-to-pdf': { id: 'ppt-to-pdf', name: 'PowerPoint to PDF', icon: PresentationChartBarIcon, description: 'Convert PowerPoint presentations to PDF.' },
     'convert-image': { id: 'convert-image', name: 'Convert Image', icon: ArrowPathIcon, description: 'Convert images between PNG, JPG, and WEBP.' },
     'translate': { id: 'translate', name: 'Translate PDF', icon: LanguageIcon, description: 'Translate PDF content between languages.' },
     'read-aloud': { id: 'read-aloud', name: 'Read Aloud', icon: SpeakerWaveIcon, description: 'Listen to your PDF read out loud.' },
@@ -89,7 +89,7 @@ function App() {
     },
     {
       title: 'PDF Convert',
-      items: ['pdf-to-img', 'pdf-to-word', 'pdf-to-ppt']
+      items: ['pdf-to-img', 'pdf-to-word']
     },
     {
       title: 'Text Convert',
@@ -101,7 +101,7 @@ function App() {
     },
     {
       title: 'Other Converts',
-      items: ['word-to-pdf', 'ppt-to-pdf']
+      items: ['word-to-pdf']
     },
     {
       title: 'PDF Utilities',

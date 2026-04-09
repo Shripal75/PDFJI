@@ -609,13 +609,16 @@ def ppt_to_pdf(input_path, output_path, page_indices=None):
         import comtypes.client
     except ImportError:
         raise ImportError("comtypes is required for PPT to PDF (Windows only). pip install comtypes")
+    
+    # COM requires absolute paths
+    input_path = os.path.abspath(input_path)
+    output_path = os.path.abspath(output_path)
         
     powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
-    # powerpoint.Visible = 1 # Keep it hidden if possible
     
     try:
         # Open presentation
-        presentation = powerpoint.Presentations.Open(input_path)
+        presentation = powerpoint.Presentations.Open(input_path, WithWindow=False)
         
         # Filter pages if requested
         if page_indices is not None:
@@ -652,12 +655,15 @@ def extract_pptx_slides(input_path, output_dir):
         import comtypes.client
     except ImportError:
         return []
+    
+    # COM requires absolute paths
+    input_path = os.path.abspath(input_path)
+    output_dir = os.path.abspath(output_dir)
         
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
         
     powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
-    # powerpoint.Visible = 1
     
     image_paths = []
     
@@ -670,14 +676,12 @@ def extract_pptx_slides(input_path, output_dir):
             image_path = os.path.join(output_dir, image_name)
             
             # Export slide
-            # FilterName="JPG"
             slide.Export(image_path, "JPG")
             image_paths.append(image_name)
             
         presentation.Close()
     except Exception as e:
         print(f"Error extracting PPTX slides: {e}")
-        # Don't raise, just return what we have (or empty)
     finally:
         try:
             powerpoint.Quit()

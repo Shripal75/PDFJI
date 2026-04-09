@@ -524,49 +524,28 @@ async def pdf_to_ppt_endpoint(file: UploadFile = File(...), pages: Optional[str]
 @app.post("/ppt-to-pdf")
 async def ppt_to_pdf_endpoint(file: UploadFile = File(...), pages: Optional[str] = Form(None)):
     try:
-        file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+        file_path = os.path.abspath(os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}"))
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
         output_filename = f"converted_{uuid.uuid4()}.pdf"
-        output_path = os.path.join(OUTPUT_DIR, output_filename)
+        output_path = os.path.abspath(os.path.join(OUTPUT_DIR, output_filename))
         
-        # Parse pages
+        # Parse pages if provided
         page_indices = None
         if pages and pages.strip():
-            # We need total count. 
-            # Ideally we check it, but utils.ppt_to_pdf handles logic?
-            # Actually parsing range requires 'total'.
-            # Opening PPT via COM just to get count is slow.
-            # workaround: Assume max generic or let functionality verify?
-            # Better: open it briefly to get count? Or catch error?
-            # Let's trust the frontend sent valid max, OR parse comfortably.
-            # BUT utils.parse_page_range needs 'total_pages'.
-            pass # See logic below
-            
-        # Optimization: We can't easily get total_pages without opening it.
-        # But we open it for conversion anyway.
-        # So we might need to move parsing INSIDE utils or extract it here.
-        # Strategy: To parse specific range like "1-5", we need to know 5 <= Total.
-        # If we pass "None" as total to parse_page_range, maybe we can adapt it?
-        # Let's look at utils.parse_page_range implementation.
-        # If I can't check 'total', I'll just skip validation or do it in utils.
-        # Actually, let's just Open -> Count -> Close here? No, too slow (2 opens).
-        # Let's modify utils.ppt_to_pdf to accept the STRING 'pages' and parse it internally?
-        # No, better to keep utils pure.
-        # Let's getting count:
-        try:
-             import comtypes.client
-             powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
-             pres = powerpoint.Presentations.Open(file_path, WithWindow=False)
-             total = pres.Slides.Count
-             pres.Close()
-             # powerpoint.Quit() # Keep it running for next step speedup?
-        except:
-             total = 1000 # Fallback
-             
-        from utils import parse_page_range
-        page_indices = parse_page_range(pages, total) if pages and pages.strip() else None
+            try:
+                import comtypes.client
+                powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
+                pres = powerpoint.Presentations.Open(file_path, WithWindow=False)
+                total = pres.Slides.Count
+                pres.Close()
+                powerpoint.Quit()
+            except:
+                total = 1000  # Fallback
+                
+            from utils import parse_page_range
+            page_indices = parse_page_range(pages, total)
 
         from utils import ppt_to_pdf
         ppt_to_pdf(file_path, output_path, page_indices=page_indices)
@@ -582,12 +561,12 @@ async def ppt_to_pdf_endpoint(file: UploadFile = File(...), pages: Optional[str]
 async def extract_pptx_pages_endpoint(file: UploadFile = File(...)):
     """Extract slides from PPTX as images for preview."""
     try:
-        file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+        file_path = os.path.abspath(os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}"))
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
         subdir_name = f"pptx_slides_{uuid.uuid4()}"
-        output_subdir = os.path.join(PREVIEW_DIR, subdir_name)
+        output_subdir = os.path.abspath(os.path.join(PREVIEW_DIR, subdir_name))
         
         from utils import extract_pptx_slides
         image_names = extract_pptx_slides(file_path, output_subdir)
